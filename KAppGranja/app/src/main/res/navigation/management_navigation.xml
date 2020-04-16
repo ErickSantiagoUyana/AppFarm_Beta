@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/management_navigation"
+    app:startDestination="@id/managementFragment">
+    <fragment
+        android:id="@+id/managementFragment"
+        android:name="com.example.kappgranja.ui.management.ManagementFragment"
+        android:label="Management"
+        tools:layout="@layout/fragment_management" >
+        <action
+            android:id="@+id/action_managementFragment_to_goatFragment"
+            app:destination="@id/goatFragment" />
+        <action
+            android:id="@+id/action_managementFragment_to_sheepsFragment"
+            app:destination="@id/sheepsFragment" />
+        <action
+            android:id="@+id/action_managementFragment_to_pigsFragment"
+            app:destination="@id/pigsFragment" />
+        <action
+            android:id="@+id/action_managementFragment_to_cowsFragment"
+            app:destination="@id/cowsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cowsFragment"
+        android:name="com.example.kappgranja.ui.management.CowsFragment"
+        android:label="CowsFragment"
+        tools:layout="@layout/fragment_cow"/>
+    <fragment
+        android:id="@+id/goatFragment"
+        android:name="com.example.kappgranja.ui.management.GoatFragment"
+        android:label="GoatFragment"
+        tools:layout="@layout/fragment_goat"/>
+    <fragment
+        android:id="@+id/pigsFragment"
+        android:name="com.example.kappgranja.ui.management.PigsFragment"
+        android:label="PigsFragment"
+        tools:layout="@layout/fragment_pig"/>
+    <fragment
+        android:id="@+id/sheepsFragment"
+        android:name="com.example.kappgranja.ui.management.SheepsFragment"
+        android:label="SheepsFragment"
+        tools:layout="@layout/fragment_sheeps"/>
+</navigation>
