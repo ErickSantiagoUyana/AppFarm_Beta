@@ -5,9 +5,5 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#56A65B5B"
-    tools:context="com.example.kappgranja.ui.security.SecurityFragment">
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@color/colorBackground"
+    tools:context="com.example.kappgranja.ui.security.SecurityFragment"/>

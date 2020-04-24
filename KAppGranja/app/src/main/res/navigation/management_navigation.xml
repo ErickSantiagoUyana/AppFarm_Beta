@@ -27,7 +27,11 @@
         android:id="@+id/cowsFragment"
         android:name="com.example.kappgranja.ui.management.CowsFragment"
         android:label="CowsFragment"
-        tools:layout="@layout/fragment_cow"/>
+        tools:layout="@layout/fragment_cow">
+        <action
+            android:id="@+id/action_cowsFragment_to_animalFormFragment"
+            app:destination="@id/animalFormFragment" />
+    </fragment>
     <fragment
         android:id="@+id/goatFragment"
         android:name="com.example.kappgranja.ui.management.GoatFragment"
@@ -43,4 +47,18 @@
         android:name="com.example.kappgranja.ui.management.SheepsFragment"
         android:label="SheepsFragment"
         tools:layout="@layout/fragment_sheeps"/>
+    <fragment
+        android:id="@+id/animalFormFragment"
+        android:name="com.example.kappgranja.ui.management.AnimalFormFragment"
+        android:label="fragment_animal_form"
+        tools:layout="@layout/fragment_animal_form" >
+        <action
+            android:id="@+id/action_animalFormFragment_to_foodList2"
+            app:destination="@id/foodList2" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodList2"
+        android:name="com.example.kappgranja.ui.management.FoodList"
+        android:label="food_list_activity"
+        tools:layout="@layout/food_list_activity" />
 </navigation>

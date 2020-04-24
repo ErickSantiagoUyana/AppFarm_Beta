@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Granja3</string>
+    <string name="actividad_2">Actividad 2</string>
+    <string name="gestion">Gestion</string>
+    <string name="seguridad">Seguridad</string>
+    <string name="oveja">OVEJA</string>
+    <string name="cabra">CABRA</string>
+    <string name="cerdo">CERDO</string>
+    <string name="vaca">VACA</string>
+    <string name="ovejas">Ovejas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

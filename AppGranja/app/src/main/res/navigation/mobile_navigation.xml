@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_management">
+
+    <fragment
+        android:id="@+id/navigation_management"
+        android:name="com.example.appgranja.ui.management.ManagementFragment"
+        android:label="@string/little_managent"
+        tools:layout="@layout/fragment_management" >
+        <action
+            android:id="@+id/action_navigation_management_to_navigation_sheeps"
+            app:destination="@id/navigation_sheeps"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            />
+        <action
+            android:id="@+id/action_navigation_management_to_navigation_pigs"
+            app:destination="@id/navigation_pigs" />
+        <action
+            android:id="@+id/action_navigation_management_to_navigation_cows"
+            app:destination="@id/navigation_cows" />
+        <action
+            android:id="@+id/action_navigation_management_to_navigation_goats"
+            app:destination="@id/navigation_goats" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_security"
+        android:name="com.example.appgranja.ui.security.SecurityFragment"
+        android:label="@string/little_security"
+        tools:layout="@layout/fragment_security" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.appgranja.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_sheeps"
+        android:name="com.example.appgranja.SheepsFragment"
+        android:label="@string/little_sheeps"
+        tools:layout="@layout/fragment_sheeps" />
+    <fragment
+        android:id="@+id/navigation_pigs"
+        android:name="com.example.appgranja.PigsFragment"
+        android:label="@string/little_pigs"
+        tools:layout="@layout/fragment_pig" />
+    <fragment
+        android:id="@+id/navigation_cows"
+        android:name="com.example.appgranja.CowsFragment"
+        android:label="@string/little_cows"
+        tools:layout="@layout/fragment_cow" />
+    <fragment
+        android:id="@+id/navigation_goats"
+        android:name="com.example.appgranja.GoatsFragment"
+        android:label="@string/little_goats"
+        tools:layout="@layout/fragment_goat" />
+</navigation>

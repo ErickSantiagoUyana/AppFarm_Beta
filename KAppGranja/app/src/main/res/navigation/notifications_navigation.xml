@@ -10,5 +10,14 @@
         android:id="@+id/notificationsfragment"
         android:name="com.example.kappgranja.ui.notifications.NotificationsFragment"
         android:label="Notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsfragment_to_mainActivity2Fragment"
+            app:destination="@id/mainActivity2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainActivity2Fragment"
+        android:name="com.example.kappgranja.ui.mainactivity2.MainActivity2Fragment"
+        android:label="main_activity2_fragment"
+        tools:layout="@layout/main_activity2_fragment" />
 </navigation>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/colorBackground"
+    tools:context="com.example.kappgranja.ui.management.ManagementFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="217dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_fondo_max"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="800dp"
+            android:layout_height="50dp"
+            android:background="#663300"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:gravity="center"
+            android:text="TYPES OF ANIMALS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02" />
+
+        <Button
+            android:id="@+id/button_sheeps"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginRight="41dp"
+            android:layout_marginBottom="47dp"
+            android:background="@drawable/special_button"
+            android:drawableLeft="@drawable/ic_sheep_2"
+            android:drawablePadding="0dp"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:includeFontPadding="true"
+            android:text="SHEEPS"
+            android:textColor="#666666"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/button_goats"
+            app:layout_constraintEnd_toStartOf="@+id/button_pigs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Button
+            android:id="@+id/button_pigs"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="83dp"
+            android:layout_marginRight="83dp"
+            android:layout_marginBottom="47dp"
+            android:background="@drawable/special_button"
+            android:drawableLeft="@drawable/ic_pig_2"
+            android:drawablePadding="0dp"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:includeFontPadding="true"
+            android:text="PIGS"
+            android:textColor="#666666"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/button_cows"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_sheeps"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Button
+            android:id="@+id/button_cows"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="83dp"
+            android:layout_marginRight="83dp"
+            android:layout_marginBottom="113dp"
+            android:background="@drawable/special_button"
+            android:drawableLeft="@drawable/ic_cow_2"
+            android:drawablePadding="0dp"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:includeFontPadding="true"
+            android:text="COWS"
+            android:textColor="#666666"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_goats"
+            app:layout_constraintTop_toBottomOf="@+id/button_pigs" />
+
+        <Button
+            android:id="@+id/button_goats"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginRight="41dp"
+            android:layout_marginBottom="113dp"
+            android:background="@drawable/special_button"
+            android:drawableLeft="@drawable/ic_goat_2"
+            android:drawablePadding="0dp"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:includeFontPadding="true"
+            android:text="GOATS"
+            android:textColor="#666666"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_cows"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_sheeps" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

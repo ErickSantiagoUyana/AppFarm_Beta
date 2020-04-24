@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_gestion"
+        android:icon="@drawable/ic_gestion_animales"
+        android:title="@string/gestion" />
+    <item
+
+        android:id="@+id/nav_seguridad"
+        android:icon="@drawable/ic_seguridad"
+        android:title= "@string/seguridad"
+    />
+</menu>
