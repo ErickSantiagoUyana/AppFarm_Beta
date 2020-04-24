@@ -7,9 +7,9 @@ public class Pig {
     private String year;
     private byte[] image;
 
-    public Pig(String name, String price, byte[] image, int id) {
+    public Pig(String name, String year, byte[] image, int id) {
         this.name = name;
-        this.year = price;
+        this.year = year;
         this.image = image;
         this.id = id;
     }
@@ -30,11 +30,11 @@ public class Pig {
         this.name = name;
     }
 
-    public String getPrice() {
+    public String getYear() {
         return year;
     }
 
-    public void setPrice(String price) {
+    public void setYear(String price) {
         this.year = year;
     }
 

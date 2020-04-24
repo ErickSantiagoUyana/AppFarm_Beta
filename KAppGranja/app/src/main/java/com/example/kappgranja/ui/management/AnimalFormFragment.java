@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,13 +39,16 @@ public class AnimalFormFragment extends Fragment {
     ImageView imageView;
     final int REQUEST_CODE_GALLERY = 999;
     public static SQLiteHelper sqLiteHelper;
+    private String NameTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_animal_form, container, false);
 
-        return inflater.inflate(R.layout.fragment_animal_form, container, false);
+        NameTab = getArguments().getString("P");
+        return view;
     }
 
     @Override
@@ -52,7 +56,6 @@ public class AnimalFormFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
 
 
     @Override
@@ -65,9 +68,6 @@ public class AnimalFormFragment extends Fragment {
 
         sqLiteHelper = ManagementFragment.sqLiteHelper;
 
-        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS FOOD(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, price VARCHAR, image BLOB)");
-
-
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,12 +77,10 @@ public class AnimalFormFragment extends Fragment {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         REQUEST_CODE_GALLERY
 
-
                 );
 
             }
         });
-
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +89,7 @@ public class AnimalFormFragment extends Fragment {
                     sqLiteHelper.insertData(
                             edtName.getText().toString().trim(),
                             edtPrice.getText().toString().trim(),
-                            imageViewToByte(imageView)
+                            imageViewToByte(imageView),NameTab
                     );
                     Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                     edtName.setText("");
@@ -103,18 +101,6 @@ public class AnimalFormFragment extends Fragment {
                 }
             }
         });
-
-
-        /*btnList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Navigation.findNavController(view).navigate(R.id.action_animalFormFragment_to_foodList2);
-
-            }
-        });
-*/
-
 
     }
 
@@ -176,7 +162,6 @@ public class AnimalFormFragment extends Fragment {
         edtPrice = (EditText) view.findViewById(R.id.edtPrice);
         btnChoose = (Button) view.findViewById(R.id.btnChoose);
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
-        //btnList = (Button) view.findViewById(R.id.btnList);
         imageView = (ImageView) view.findViewById(R.id.imageView);
     }
 }

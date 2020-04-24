@@ -42,7 +42,8 @@ public class CowsFragment extends Fragment {
     RecyclerView recyclerView;
     ListView listView;
     ArrayList<Cow> list;
-    CowListAdapter adapter = null;
+    AnimalListAdapter adapter = null;
+    private String NameTab = "COWS";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,14 +56,15 @@ public class CowsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.list_view_cow);
+        listView = (ListView) view.findViewById(R.id.list_view);
         list = new ArrayList<>();
-        adapter = new CowListAdapter(getContext(), R.layout.row_list_animal, list);
+
+        adapter = new AnimalListAdapter(getContext(), R.layout.row_list_animal, list,NameTab);
         listView.setAdapter(adapter);
 
 
         // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM COWS");
+        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -87,7 +89,7 @@ public class CowsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int item) {
                         if (item == 0) {
                             // update
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM COWS");
+                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()){
                                 arrID.add(c.getInt(0));
@@ -97,7 +99,7 @@ public class CowsFragment extends Fragment {
 
                         } else {
                             // delete
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM COWS");
+                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()){
                                 arrID.add(c.getInt(0));
@@ -118,7 +120,11 @@ public class CowsFragment extends Fragment {
         botton_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_cowsFragment_to_animalFormFragment);
+
+                Bundle bundle = new Bundle();
+
+                bundle.putString("P", NameTab);
+                Navigation.findNavController(v).navigate(R.id.action_cowsFragment_to_animalFormFragment,bundle);
 
             }
         });
@@ -126,7 +132,7 @@ public class CowsFragment extends Fragment {
     }
 
 
-    private void showDialogDelete(final int idCow){
+    private void showDialogDelete(final int isA){
         final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
 
         dialogDelete.setTitle("Warning!!");
@@ -135,7 +141,7 @@ public class CowsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
-                    ManagementFragment.sqLiteHelper.deleteData(idCow);
+                    ManagementFragment.sqLiteHelper.deleteData(isA,NameTab);
                     Toast.makeText(getContext(), "Delete successfully!!!",Toast.LENGTH_SHORT).show();
                 } catch (Exception e){
                     Log.e("error", e.getMessage());
@@ -158,7 +164,7 @@ public class CowsFragment extends Fragment {
 
     private void updateAnimalList(){
         // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM COWS");
+        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -229,7 +235,7 @@ public class CowsFragment extends Fragment {
                             EditText_Name.getText().toString().trim(),
                             EditText_Year.getText().toString().trim(),
                             ManagementFragment.imageViewToByte(imageViewAnimal),
-                            position
+                            position,NameTab
                     );
                     dialog.dismiss();
                     Toast.makeText(getContext(), "Update successfully!!!",Toast.LENGTH_SHORT).show();

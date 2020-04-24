@@ -31,11 +31,11 @@ public class Cow {
         this.name = name;
     }
 
-    public String getPrice() {
+    public String getYear() {
         return year;
     }
 
-    public void setPrice(String price) {
+    public void setYear(String price) {
         this.year = year;
     }
 

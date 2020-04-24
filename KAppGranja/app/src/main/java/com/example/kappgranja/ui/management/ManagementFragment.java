@@ -72,9 +72,9 @@ public class ManagementFragment extends Fragment implements View.OnClickListener
         sqLiteHelper = new SQLiteHelper(getContext(), "AnimalsDB.sqlite", null, 1);
 
         sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS COWS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
-        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS SHEEPS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
-        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS PIGS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
-        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS GOAT(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS SHEEPS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS PIGS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS GOATS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
 
     }
 

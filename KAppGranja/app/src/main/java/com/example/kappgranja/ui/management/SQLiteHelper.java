@@ -18,9 +18,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertData(String name, String year, byte[] image){
+    public void insertData(String name, String year, byte[] image,String tab){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO COWS VALUES (NULL, ?, ?, ?)";
+        String sql = "INSERT INTO "+tab+" VALUES (NULL, ?, ?, ?)";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
@@ -32,10 +32,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.executeInsert();
     }
 
-    public void updateData(String name, String year, byte[] image, int id) {
+    public void updateData(String name, String year, byte[] image, int id,String tab) {
         SQLiteDatabase database = getWritableDatabase();
 
-        String sql = "UPDATE COWS SET name = ?, year = ?, image = ? WHERE id = ?";
+        String sql = "UPDATE "+tab+" SET name = ?, year = ?, image = ? WHERE id = ?";
         SQLiteStatement statement = database.compileStatement(sql);
 
         statement.bindString(1, name);
@@ -47,10 +47,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public  void deleteData(int id) {
+    public  void deleteData(int id,String tab) {
         SQLiteDatabase database = getWritableDatabase();
 
-        String sql = "DELETE FROM COWS WHERE id = ?";
+        String sql = "DELETE FROM "+tab+" WHERE id = ?";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
         statement.bindDouble(1, (double)id);
