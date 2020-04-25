@@ -76,6 +76,22 @@ public class CowsFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
         ////////////////////////////////////////////////////////////////////////////////////////
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                /*final Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.update_animal);
+                dialog.setTitle( listView.getItemAtPosition(position).toString());
+                dialog.show();*/
+                Cow cow = (Cow) listView.getItemAtPosition(position);
+                list.get(position).getName();
+                Toast.makeText(getContext(),  cow.getYear()+list.get(position).getName(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {

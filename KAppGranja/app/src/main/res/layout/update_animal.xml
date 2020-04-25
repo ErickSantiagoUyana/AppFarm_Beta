@@ -29,8 +29,8 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/edtPrice"
-        app:layout_constraintStart_toStartOf="@+id/edtPrice"
+        app:layout_constraintBottom_toTopOf="@+id/edtYear"
+        app:layout_constraintStart_toStartOf="@+id/edtYear"
         app:layout_constraintTop_toBottomOf="@+id/imageViewAnimal" />
 
     <Button
@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/edtYear" />
 
     <ImageView
         android:id="@+id/imageViewAnimal"

@@ -15,7 +15,7 @@
         android:layout_height="37dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="31dp"
-        android:background="#663300"
+        android:background="@color/colorBrown"
         android:fontFamily="@font/roboto_slab_bold"
         android:gravity="center"
         android:text="LIST OF ANIMALS"

@@ -2,7 +2,6 @@ package com.example.kappgranja.ui.management;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,16 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
-import com.example.kappgranja.MainActivity;
 import com.example.kappgranja.R;
 
 import java.io.ByteArrayOutputStream;
@@ -34,8 +32,8 @@ import java.io.InputStream;
 
 public class AnimalFormFragment extends Fragment {
 
-    EditText edtName, edtPrice;
-    Button btnChoose, btnAdd, btnList;
+    EditText edtName, edtYear;
+    Button btnChoose, btnAdd, btnCancel;
     ImageView imageView;
     final int REQUEST_CODE_GALLERY = 999;
     public static SQLiteHelper sqLiteHelper;
@@ -68,6 +66,9 @@ public class AnimalFormFragment extends Fragment {
 
         sqLiteHelper = ManagementFragment.sqLiteHelper;
 
+
+
+
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,17 +89,24 @@ public class AnimalFormFragment extends Fragment {
                 try{
                     sqLiteHelper.insertData(
                             edtName.getText().toString().trim(),
-                            edtPrice.getText().toString().trim(),
+                            edtYear.getText().toString().trim(),
                             imageViewToByte(imageView),NameTab
                     );
                     Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                     edtName.setText("");
-                    edtPrice.setText("");
-                    imageView.setImageResource(R.mipmap.ic_launcher);
+                    edtYear.setText("");
+                    imageView.setImageResource(R.drawable.ic_cow_2);
                 }
                 catch (Exception e){
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).popBackStack();
             }
         });
 
@@ -159,9 +167,10 @@ public class AnimalFormFragment extends Fragment {
 
     private void init( View view){
         edtName = (EditText) view.findViewById(R.id.edtName);
-        edtPrice = (EditText) view.findViewById(R.id.edtPrice);
+        edtYear = (EditText) view.findViewById(R.id.edtYear);
         btnChoose = (Button) view.findViewById(R.id.btnChoose);
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        btnCancel = (Button) view.findViewById(R.id.btnCancel);
         imageView = (ImageView) view.findViewById(R.id.imageView);
     }
 }
