@@ -1,10 +1,25 @@
 package com.example.kappgranja.ui.management;
 
 import android.database.Cursor;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class AnimalUpdateFragment {
+import androidx.fragment.app.Fragment;
+
+import com.example.kappgranja.R;
+
+public class AnimalUpdateFragment extends Fragment {
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.update_animal, container, false);
+        return view;
+    }
 /*
     private void updateAnimalList(){
         // get all data from sqlite

@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_cowsFragment_to_animalFormFragment"
             app:destination="@id/animalFormFragment" />
+        <action
+            android:id="@+id/action_cowsFragment_to_animalUpdateFragment"
+            app:destination="@id/animalUpdateFragment" />
     </fragment>
     <fragment
         android:id="@+id/goatFragment"
@@ -64,4 +67,9 @@
         android:name="com.example.kappgranja.ui.management.AnimalFormFragment"
         android:label="fragment_animal_form"
         tools:layout="@layout/fragment_animal_form" />
+    <fragment
+        android:id="@+id/animalUpdateFragment"
+        android:name="com.example.kappgranja.ui.management.AnimalUpdateFragment"
+        android:label="update_animal"
+        tools:layout="@layout/update_animal" />
 </navigation>

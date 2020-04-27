@@ -49,7 +49,7 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //sqLiteHelper = ManagementFragment.sqLiteHelper;
+        sqLiteHelper = ManagementFragment.sqLiteHelper;
 
 
     }
@@ -58,34 +58,7 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
-        sqLiteHelper = ManagementFragment.sqLiteHelper;
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //sqLiteHelper.insertData("3","3","3","3","3","3","3", imageViewToByte(imageView),NameTab);
-                try {
-                    int age = Integer.parseInt(edtAge.getText().toString());
-                    sqLiteHelper.insertData(
-                            edtNumber.getText().toString().trim(),
-                            edtName.getText().toString().trim(),
-                            edtAge.getText().toString().trim(),
-                            edtState.getText().toString().trim(),
-                            edtHealth.getText().toString().trim(),
-                            edtSex.getText().toString().trim(),
-                            edtRace.getText().toString().trim(),
-                            imageViewToByte(imageView), NameTab
-                    );
-                    Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-
-                    Navigation.findNavController(v).popBackStack();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Added failed", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
+        //sqLiteHelper = ManagementFragment.sqLiteHelper;
     }
 
 
@@ -99,7 +72,28 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
                         REQUEST_CODE_GALLERY);
                 break;
 
+            case R.id.btnAdd:
 
+                try {
+                    sqLiteHelper.insertData(
+                            edtNumber.getText().toString(),
+                            edtName.getText().toString(),
+                            edtAge.getText().toString(),
+                            edtState.getText().toString(),
+                            edtHealth.getText().toString(),
+                            edtSex.getText().toString(),
+                            edtRace.getText().toString(),
+                            imageViewToByte(imageView), NameTab
+                    );
+                    Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
+                    //Navigation.findNavController(v).popBackStack();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Added failed", Toast.LENGTH_SHORT).show();
+
+                }
+                break;
             case R.id.btnCancel:
                 Navigation.findNavController(v).popBackStack();
                 break;
@@ -158,7 +152,7 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
         btnChoose.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
-        //btnAdd.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
         //EDITTEXT
         edtName = (EditText) view.findViewById(R.id.edtName);
         edtNumber = (EditText) view.findViewById(R.id.edtNumber);

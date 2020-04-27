@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toStartOf="@+id/name_animal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"
-        app:srcCompat="@drawable/ic_cow_2" />
+        app:srcCompat="@mipmap/ic_launcher" />
 
     />
 

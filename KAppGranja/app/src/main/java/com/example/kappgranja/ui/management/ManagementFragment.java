@@ -80,9 +80,6 @@ public class ManagementFragment extends Fragment implements View.OnClickListener
         //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS SHEEPS"+sqlMain);
         //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS PIGS"+sqlMain);
         //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS GOATS"+sqlMain);
-
-        //sqLiteHelper.queryData("INSERT INTO COWS VALUES (NULL, 'DER', 'E', 'W', 'R', 'W', 'R', 'W', NULL)");
-
     }
 
 
@@ -105,12 +102,5 @@ public class ManagementFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
-    }
 
 }

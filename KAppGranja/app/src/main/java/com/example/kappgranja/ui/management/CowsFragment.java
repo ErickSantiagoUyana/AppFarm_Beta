@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kappgranja.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -41,13 +43,14 @@ import java.util.ArrayList;
 
 public class CowsFragment extends Fragment {
 
-    private RecyclerView recyclerView;
     private ListView listView;
     private ArrayList<Cow> list;
     private AnimalListAdapter adapter;
-    static private String NameTab = "COWS";
+    private String NameTab = "COWS";
     private Button botton_add;
     private int REQUEST_CODE_GALLERY = 888;
+    private SQLiteHelper sqLiteHelper;
+
 
 
 
@@ -62,31 +65,15 @@ public class CowsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.list_view);
+        listView = view.findViewById(R.id.list_view);
         list = new ArrayList<>();
         adapter = new AnimalListAdapter(getContext(), R.layout.row_list_animal, list,NameTab);
         listView.setAdapter(adapter);
         botton_add = view.findViewById(R.id.add_animal);
-
+        sqLiteHelper = ManagementFragment.sqLiteHelper;
 
         // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
-        list.clear();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String idNumber = cursor.getString(1);
-            String name = cursor.getString(2);
-            String age = cursor.getString(3);
-            String state = cursor.getString(4);
-            String health = cursor.getString(5);
-            String sex = cursor.getString(6);
-            String race = cursor.getString(7);
-            byte[] image = cursor.getBlob(8);
-
-            list.add(new Cow(idNumber,name,age,state,health,sex,race,image,id));
-        }
-        adapter.notifyDataSetChanged();
-
+        updateAnimalList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -126,8 +113,8 @@ public class CowsFragment extends Fragment {
         TextView textSex = (TextView) dialog.findViewById(R.id.textSexDetail);
         TextView textRace = (TextView) dialog.findViewById(R.id.textRaceDetail);
 
-        //Button Button_Update = (Button) dialog.findViewById(R.id.btnAddUpdate);
-        //Button Button_Cancel = (Button) dialog.findViewById((R.id.btnChoose));
+        Button btnUpdateDetail = (Button) dialog.findViewById(R.id.btnUpdateDetail);
+        Button btnDeleteDetail = (Button) dialog.findViewById((R.id.btnDeleteDetail));
 
         texName.setText(list.get(position).getName());
         textNumber.setText(list.get(position).getIdNumber());
@@ -147,12 +134,46 @@ public class CowsFragment extends Fragment {
         dialog.getWindow().setLayout(width,height);
         dialog.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         dialog.show();
+        btnDeleteDetail.setOnClickListener(new View.OnClickListener() {
+            AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
+
+            @Override
+            public void onClick(View v) {
+
+                showDialogDelete(list.get(position).getId());
+                dialog.dismiss();
+            }
+
+        });
+        btnUpdateDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDialogUpdate(activity,list.get(position).getId());
+            dialog.dismiss();
+            }
+        });
+
 
     }
 
-    /*private void showDialogDelete(final int isA){
-        final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
+    /*private void showDialogUpdate(int isA, Activity activity){
+
+        Dialog dialogUpdate = new Dialog(activity);
+        dialogUpdate.setContentView(R.layout.update_animal);
+        // set width for dialog
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+        dialogUpdate.getWindow().setLayout(width,height);
+        dialogUpdate.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dialogUpdate.show();
+
+    }*/
+    private void showDialogDelete(int isA){
+        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
 
         dialogDelete.setTitle("Warning!!");
         dialogDelete.setMessage("Are you sure you want to this delete?");
@@ -176,13 +197,13 @@ public class CowsFragment extends Fragment {
             }
         });
         dialogDelete.show();
-    }*/
+    }
 
 
 
     private void updateAnimalList(){
         // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
+        Cursor cursor = sqLiteHelper.getData("SELECT * FROM "+NameTab);
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -204,7 +225,7 @@ public class CowsFragment extends Fragment {
 
     ImageView imageViewAnimal;
 
-    /*private void showDialogUpdate(Activity activity, final int position){
+    private void showDialogUpdate(Activity activity, final int position){
 
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.update_animal);
@@ -231,47 +252,18 @@ public class CowsFragment extends Fragment {
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.show();
 
-        imageViewAnimal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // request photo library
-                requestPermissions(
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_GALLERY
 
+    }
 
-                );
-            }
-        });
+    public static byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
 
-        Button_Update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    ManagementFragment.sqLiteHelper.updateData(
-                            EditText_Name.getText().toString().trim(),
-                            EditText_Year.getText().toString().trim(),
-                            ManagementFragment.imageViewToByte(imageViewAnimal),
-                            position,NameTab
-                    );
-                    dialog.dismiss();
-                    Toast.makeText(getContext(), "Update successfully!!!",Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception error) {
-                    Log.e("Update error", error.getMessage());
-                }
-                updateAnimalList();
-            }
-        });
+        return byteArray;
+    }
 
-
-        Button_Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    dialog.cancel();
-            }
-        });
-    }*/
 
 
     @Override

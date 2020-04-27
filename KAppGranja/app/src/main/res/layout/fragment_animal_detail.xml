@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/button_delete"
+        android:id="@+id/btnDeleteDetail"
         android:layout_width="116dp"
         android:layout_height="43dp"
         android:background="#FF9933"
@@ -25,20 +25,20 @@
         app:layout_constraintVertical_bias="0.936" />
 
     <Button
-        android:id="@+id/button_Update"
+        android:id="@+id/btnUpdateDetail"
         android:layout_width="116dp"
         android:layout_height="43dp"
         android:layout_marginStart="292dp"
         android:layout_marginLeft="292dp"
         android:background="#6D8764"
         android:fontFamily="@font/roboto_medium"
-        android:text="Update"
+        android:text="UPDATE"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/button_delete"
-        app:layout_constraintEnd_toStartOf="@+id/button_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDeleteDetail"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteDetail"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button_delete"
+        app:layout_constraintTop_toTopOf="@+id/btnDeleteDetail"
         app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout

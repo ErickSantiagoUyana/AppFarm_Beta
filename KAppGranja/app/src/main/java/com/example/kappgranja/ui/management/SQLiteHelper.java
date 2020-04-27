@@ -34,6 +34,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.bindString(6, sex);
         statement.bindString(7, race);
         statement.bindBlob(8, image);
+        //String sql = "INSERT INTO "+tab+" VALUES (NULL, '"+idNumber+"', '"+name+"','"+age+"', ' ', ' ',' ', ' ',' ')";
 
         statement.executeInsert();
     }
