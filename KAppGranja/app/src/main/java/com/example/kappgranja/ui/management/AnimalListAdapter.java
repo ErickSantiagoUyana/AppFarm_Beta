@@ -83,7 +83,7 @@ public class AnimalListAdapter extends BaseAdapter {
             Cow cow = ((Cow) AnimalList.get(position));
 
             holder.txtName.setText(cow.getName());
-            holder.txtYear.setText(cow.getYear());
+            holder.txtYear.setText(cow.getAge());
 
             byte[] foodImage = cow.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
@@ -93,7 +93,7 @@ public class AnimalListAdapter extends BaseAdapter {
             Pig pig = ((Pig) AnimalList.get(position));
 
             holder.txtName.setText(pig.getName());
-            holder.txtYear.setText(pig.getYear());
+            holder.txtYear.setText(pig.getAge());
 
             byte[] foodImage = pig.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
@@ -103,7 +103,7 @@ public class AnimalListAdapter extends BaseAdapter {
             Sheep sheep = ((Sheep) AnimalList.get(position));
 
             holder.txtName.setText(sheep.getName());
-            holder.txtYear.setText(sheep.getYear());
+            holder.txtYear.setText(sheep.getAge());
 
             byte[] foodImage = sheep.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
@@ -113,7 +113,7 @@ public class AnimalListAdapter extends BaseAdapter {
             Goat goat = ((Goat) AnimalList.get(position));
 
             holder.txtName.setText(goat.getName());
-            holder.txtYear.setText(goat.getYear());
+            holder.txtYear.setText(goat.getAge());
 
             byte[] foodImage = goat.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);

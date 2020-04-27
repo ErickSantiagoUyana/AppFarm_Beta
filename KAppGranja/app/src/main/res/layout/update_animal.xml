@@ -66,8 +66,8 @@
             android:ems="10"
             android:hint="Year"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="@+id/edtName"
-            app:layout_constraintTop_toBottomOf="@+id/edtName" />
+            app:layout_constraintStart_toStartOf="@+id/edtHealth"
+            app:layout_constraintTop_toBottomOf="@+id/edtHealth" />
 
         <ImageView
             android:id="@+id/imageViewUpdate"

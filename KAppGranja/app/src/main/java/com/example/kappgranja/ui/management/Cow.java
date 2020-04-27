@@ -4,13 +4,26 @@ public class Cow {
 
 
     private int id;
+    private  String idNumber;
     private String name;
-    private String year;
+    private String age;
+    private String state;
+    private String health;
+    private String sex;
+    private String race;
     private byte[] image;
 
-    public Cow(String name, String year, byte[] image, int id) {
+
+
+    public Cow(String idNumber, String name, String age, String state, String health,
+               String sex, String race, byte[] image, int id) {
+        this.idNumber = idNumber;
         this.name = name;
-        this.year = year;
+        this.age = age;
+        this.state = state;
+        this.health = health;
+        this.sex = sex;
+        this.race= race;
         this.image = image;
         this.id = id;
     }
@@ -23,6 +36,14 @@ public class Cow {
         this.id = id;
     }
 
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,12 +52,44 @@ public class Cow {
         this.name = name;
     }
 
-    public String getYear() {
-        return year;
+    public String getAge() {
+        return age;
     }
 
-    public void setYear(String price) {
-        this.year = year;
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public void setHealth(String health) {
+        this.health = health;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
     }
 
     public byte[] getImage() {

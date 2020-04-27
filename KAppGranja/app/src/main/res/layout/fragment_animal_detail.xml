@@ -11,142 +11,224 @@
 
     <Button
         android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="302dp"
-        android:layout_marginRight="302dp"
-        android:layout_marginBottom="27dp"
+        android:layout_width="116dp"
+        android:layout_height="43dp"
         android:background="#FF9933"
         android:fontFamily="@font/roboto_medium"
         android:text="DELETE"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_Update" />
+        app:layout_constraintHorizontal_bias="0.585"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936" />
 
     <Button
         android:id="@+id/button_Update"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="302dp"
-        android:layout_marginLeft="302dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginRight="154dp"
-        android:layout_marginBottom="26dp"
+        android:layout_width="116dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginLeft="292dp"
         android:background="#6D8764"
         android:fontFamily="@font/roboto_medium"
         android:text="Update"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/button_delete"
         app:layout_constraintEnd_toStartOf="@+id/button_delete"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+        app:layout_constraintTop_toTopOf="@+id/button_delete"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout10"
-        android:layout_width="392dp"
-        android:layout_height="237dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginRight="67dp"
-        android:layout_marginBottom="18dp"
+    <FrameLayout
+        android:id="@+id/frameLayout7"
+        android:layout_width="386dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="50dp"
         android:background="#FFFFFF"
-        android:clickable="false"
-        android:divider="@null"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="90dp"
-        android:paddingTop="20dp"
-        android:paddingRight="90dp"
-        android:paddingBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_Update"
+        android:paddingLeft="30dp"
+        android:paddingTop="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/textView_numberID"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
-            tools:text="Number IDE:" />
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
-            tools:text="Age:" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
-            tools:text="Health:" />
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="Name:"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
-            tools:text="Sex:" />
+                <TextView
+                    android:id="@+id/textNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="ID Number:"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
-            tools:text="Race:" />
+                <TextView
+                    android:id="@+id/textAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="Age:"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
-            tools:text="State:" />
+                <TextView
+                    android:id="@+id/textState"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="State:"
+                    android:textSize="18sp" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textHealth"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="Health:"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textSex"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="Sex:"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textRace"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:text="Race:"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textNameDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textNumberDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textAgeDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textStateDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textHealthDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textSexDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textRaceDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center|left"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="358dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="83dp"
+        android:layout_width="827dp"
+        android:layout_height="26dp"
         android:background="@color/colorBrown"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="Name"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout7"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewDetail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
+        android:id="@+id/imageViewDetail"
+        android:layout_width="386dp"
         android:layout_height="283dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginLeft="68dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
         android:background="#FFFFFF"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="20dp"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout10"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout7"
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout7"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout7"
         app:srcCompat="@drawable/img_fondo_max" />
 </androidx.constraintlayout.widget.ConstraintLayout>

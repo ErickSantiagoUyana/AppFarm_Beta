@@ -72,47 +72,10 @@ public class PigsFragment extends Fragment {
             String year = cursor.getString(2);
             byte[] image = cursor.getBlob(3);
 
-            list.add(new Pig(name, year, image, id));
+            //list.add(new Pig(name, year, image, id));
         }
         adapter.notifyDataSetChanged();
         ////////////////////////////////////////////////////////////////////////////////////////
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                CharSequence[] items = {"Update", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-
-                dialog.setTitle("Choose an action");
-                dialog.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (item == 0) {
-                            // update
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
-                            ArrayList<Integer> arrID = new ArrayList<Integer>();
-                            while (c.moveToNext()){
-                                arrID.add(c.getInt(0));
-                            }
-                            // show dialog update at here
-                            showDialogUpdate(getActivity(), arrID.get(position));
-
-                        } else {
-                            // delete
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
-                            ArrayList<Integer> arrID = new ArrayList<Integer>();
-                            while (c.moveToNext()){
-                                arrID.add(c.getInt(0));
-                            }
-                            showDialogDelete(arrID.get(position));
-                        }
-                    }
-                });
-                dialog.show();
-                return true;
-            }
-        });
-
         ////////////////////////////////////////////////////////////////////////////////////////
 
         Button botton_add;
@@ -132,7 +95,7 @@ public class PigsFragment extends Fragment {
     }
 
 
-    private void showDialogDelete(final int isA){
+  /*  private void showDialogDelete(final int isA){
         final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
 
         dialogDelete.setTitle("Warning!!");
@@ -274,5 +237,5 @@ public class PigsFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
+*/
 }

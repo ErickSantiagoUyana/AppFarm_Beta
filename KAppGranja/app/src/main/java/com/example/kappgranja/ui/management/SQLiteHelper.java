@@ -18,31 +18,42 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertData(String name, String year, byte[] image,String tab){
+    public void insertData(String idNumber, String name,String age, String state,String health,
+                           String sex, String race, byte[] image,String tab){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO "+tab+" VALUES (NULL, ?, ?, ?)";
+        String sql = "INSERT INTO "+tab+" VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
 
-        statement.bindString(1, name);
-        statement.bindString(2, year);
-        statement.bindBlob(3, image);
+        statement.bindString(1, idNumber);
+        statement.bindString(2, name);
+        statement.bindString(3, age);
+        statement.bindString(4, state);
+        statement.bindString(5, health);
+        statement.bindString(6, sex);
+        statement.bindString(7, race);
+        statement.bindBlob(8, image);
 
         statement.executeInsert();
     }
 
-    public void updateData(String name, String year, byte[] image, int id,String tab) {
+    public void updateData(String idNumber, String name, String age, String state,String health,
+                           String sex, String race, byte[] image, int id,String tab) {
         SQLiteDatabase database = getWritableDatabase();
-
-        String sql = "UPDATE "+tab+" SET name = ?, year = ?, image = ? WHERE id = ?";
+        String sql = "UPDATE "+tab+" SET idNumber = ?, name = ?, age = ?, state = ?, health = ?," +
+                "sex = ?, race = ?,image = ? WHERE id = ?";
         SQLiteStatement statement = database.compileStatement(sql);
 
-        statement.bindString(1, name);
-        statement.bindString(2, year);
-        statement.bindBlob(3, image);
-        statement.bindDouble(4, (double)id);
-
+        statement.bindString(1, idNumber);
+        statement.bindString(2, name);
+        statement.bindString(3, age);
+        statement.bindString(4, state);
+        statement.bindString(5, health);
+        statement.bindString(6, sex);
+        statement.bindString(7, race);
+        statement.bindBlob(8, image);
+        statement.bindDouble(9, (double)id);
         statement.execute();
         database.close();
     }

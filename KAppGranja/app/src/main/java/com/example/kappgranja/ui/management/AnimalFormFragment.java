@@ -17,11 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
 import com.example.kappgranja.R;
@@ -32,11 +30,11 @@ import java.io.InputStream;
 
 public class AnimalFormFragment extends Fragment implements View.OnClickListener {
 
-    private EditText edtName, edtYear;
+    private EditText edtName, edtNumber,edtAge,edtState, edtHealth, edtSex,edtRace;
     private Button btnChoose, btnAdd, btnCancel;
     private ImageView imageView;
     private int REQUEST_CODE_GALLERY = 999;
-    public static SQLiteHelper sqLiteHelper;
+    private SQLiteHelper sqLiteHelper;
     private String NameTab;
 
     @Override
@@ -51,6 +49,8 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //sqLiteHelper = ManagementFragment.sqLiteHelper;
+
 
     }
 
@@ -59,7 +59,33 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         init(view);
         sqLiteHelper = ManagementFragment.sqLiteHelper;
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //sqLiteHelper.insertData("3","3","3","3","3","3","3", imageViewToByte(imageView),NameTab);
+                try {
+                    int age = Integer.parseInt(edtAge.getText().toString());
+                    sqLiteHelper.insertData(
+                            edtNumber.getText().toString().trim(),
+                            edtName.getText().toString().trim(),
+                            edtAge.getText().toString().trim(),
+                            edtState.getText().toString().trim(),
+                            edtHealth.getText().toString().trim(),
+                            edtSex.getText().toString().trim(),
+                            edtRace.getText().toString().trim(),
+                            imageViewToByte(imageView), NameTab
+                    );
+                    Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
 
+                    Navigation.findNavController(v).popBackStack();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Added failed", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
 
@@ -73,21 +99,6 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
                         REQUEST_CODE_GALLERY);
                 break;
 
-            case R.id.btnAdd:
-                try {
-                    sqLiteHelper.insertData(
-                            edtName.getText().toString().trim(),
-                            edtYear.getText().toString().trim(),
-                            imageViewToByte(imageView), NameTab
-                    );
-                    Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-                    edtName.setText("");
-                    edtYear.setText("");
-                    imageView.setImageResource(R.drawable.img_add_animals);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
 
             case R.id.btnCancel:
                 Navigation.findNavController(v).popBackStack();
@@ -147,11 +158,16 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
         btnChoose.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
-        btnAdd.setOnClickListener(this);
+        //btnAdd.setOnClickListener(this);
         //EDITTEXT
         edtName = (EditText) view.findViewById(R.id.edtName);
-        edtYear = (EditText) view.findViewById(R.id.edtYear);
+        edtNumber = (EditText) view.findViewById(R.id.edtNumber);
+        edtAge = (EditText) view.findViewById(R.id.edtAge);
+        edtState = (EditText) view.findViewById(R.id.edtState);
+        edtHealth = (EditText) view.findViewById(R.id.edtHealth);
+        edtSex = (EditText) view.findViewById(R.id.edtSex);
+        edtRace = (EditText) view.findViewById(R.id.edtRace);
         //IMAGEVIEW
-        imageView = (ImageView) view.findViewById(R.id.imageView);
+        imageView = (ImageView) view.findViewById(R.id.imageViewForm);
     }
 }

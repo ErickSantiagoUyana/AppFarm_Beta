@@ -74,11 +74,16 @@ public class CowsFragment extends Fragment {
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String year = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
+            String idNumber = cursor.getString(1);
+            String name = cursor.getString(2);
+            String age = cursor.getString(3);
+            String state = cursor.getString(4);
+            String health = cursor.getString(5);
+            String sex = cursor.getString(6);
+            String race = cursor.getString(7);
+            byte[] image = cursor.getBlob(8);
 
-            list.add(new Cow(name, year, image, id));
+            list.add(new Cow(idNumber,name,age,state,health,sex,race,image,id));
         }
         adapter.notifyDataSetChanged();
 
@@ -107,26 +112,34 @@ public class CowsFragment extends Fragment {
 
     private void showDialogDetail(int position, Activity activity){
 
-        list.get(position);
 
-        final Dialog dialog = new Dialog(activity);
+        Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.fragment_animal_detail);
-        dialog.setTitle("Update");
 
-        ImageView imagen = (ImageView) dialog.findViewById(R.id.imageView2);
-        final EditText EditText_Name = (EditText) dialog.findViewById(R.id.edtNameUpdate);
-        final EditText EditText_Year = (EditText) dialog.findViewById(R.id.edtYearUpdate);
-        Button Button_Update = (Button) dialog.findViewById(R.id.btnAddUpdate);
-        Button Button_Cancel = (Button) dialog.findViewById((R.id.btnChoose));
-        TextView number = (TextView) dialog.findViewById(R.id.textView_numberID);
-        number.setText("cambiamos esto");
+        ImageView imagen = (ImageView) dialog.findViewById(R.id.imageViewDetail);
+
+        TextView texName = (TextView) dialog.findViewById(R.id.textNameDetail);
+        TextView textNumber = (TextView) dialog.findViewById(R.id.textNumberDetail);
+        TextView textAge = (TextView) dialog.findViewById(R.id.textAgeDetail);
+        TextView textState = (TextView) dialog.findViewById(R.id.textStateDetail);
+        TextView textHealth = (TextView) dialog.findViewById(R.id.textHealthDetail);
+        TextView textSex = (TextView) dialog.findViewById(R.id.textSexDetail);
+        TextView textRace = (TextView) dialog.findViewById(R.id.textRaceDetail);
+
+        //Button Button_Update = (Button) dialog.findViewById(R.id.btnAddUpdate);
+        //Button Button_Cancel = (Button) dialog.findViewById((R.id.btnChoose));
+
+        texName.setText(list.get(position).getName());
+        textNumber.setText(list.get(position).getIdNumber());
+        textAge.setText(list.get(position).getAge());
+        textState.setText(list.get(position).getState());
+        textHealth.setText(list.get(position).getHealth());
+        textSex.setText(list.get(position).getSex());
+        textRace.setText(list.get(position).getRace());
+
         byte[] foodImage = list.get(position).getImage();
         Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
         imagen.setImageBitmap(bitmap);
-
-
-
-
 
         // set width for dialog
         int width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -138,7 +151,7 @@ public class CowsFragment extends Fragment {
 
     }
 
-    private void showDialogDelete(final int isA){
+    /*private void showDialogDelete(final int isA){
         final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
 
         dialogDelete.setTitle("Warning!!");
@@ -163,8 +176,7 @@ public class CowsFragment extends Fragment {
             }
         });
         dialogDelete.show();
-    }
-
+    }*/
 
 
 
@@ -174,11 +186,16 @@ public class CowsFragment extends Fragment {
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String year = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
+            String idNumber = cursor.getString(1);
+            String name = cursor.getString(2);
+            String age = cursor.getString(3);
+            String state = cursor.getString(4);
+            String health = cursor.getString(5);
+            String sex = cursor.getString(6);
+            String race = cursor.getString(7);
+            byte[] image = cursor.getBlob(8);
 
-            list.add(new Cow(name, year, image, id));
+            list.add(new Cow(idNumber,name,age,state,health,sex,race,image,id));
         }
         adapter.notifyDataSetChanged();
     }

@@ -37,6 +37,7 @@ public class ManagementFragment extends Fragment implements View.OnClickListener
     private Button button_sheeps;
     private Button button_cows;
     private Button button_pigs;
+    private String sqlMain;
 
     public static SQLiteHelper sqLiteHelper;
 
@@ -67,14 +68,20 @@ public class ManagementFragment extends Fragment implements View.OnClickListener
         button_cows.setOnClickListener(this);
         button_pigs.setOnClickListener(this);
 
+        sqlMain = "(Id INTEGER PRIMARY KEY AUTOINCREMENT,idNumber VARCHAR, name VARCHAR, age VARCHAR, state VARCHAR, " +
+                  "health VARCHAR, sex VARCHAR, race VARCHAR, image BLOB)";
 
 
         sqLiteHelper = new SQLiteHelper(getContext(), "AnimalsDB.sqlite", null, 1);
 
-        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS COWS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
-        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS SHEEPS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
-        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS PIGS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
-        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS GOATS(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, year VARCHAR, image BLOB)");
+
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS COWS(Id INTEGER PRIMARY KEY AUTOINCREMENT,idNumber VARCHAR, name VARCHAR, age VARCHAR, state VARCHAR, " +
+                        "health VARCHAR, sex VARCHAR, race VARCHAR, image BLOB)");
+        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS SHEEPS"+sqlMain);
+        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS PIGS"+sqlMain);
+        //sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS GOATS"+sqlMain);
+
+        //sqLiteHelper.queryData("INSERT INTO COWS VALUES (NULL, 'DER', 'E', 'W', 'R', 'W', 'R', 'W', NULL)");
 
     }
 

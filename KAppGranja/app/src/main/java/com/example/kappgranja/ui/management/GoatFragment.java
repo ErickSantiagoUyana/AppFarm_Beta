@@ -51,7 +51,7 @@ public class GoatFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_goat, container, false);
     }
-
+/*
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -72,7 +72,7 @@ public class GoatFragment extends Fragment {
             String year = cursor.getString(2);
             byte[] image = cursor.getBlob(3);
 
-            list.add(new Goat(name, year, image, id));
+            //list.add(new Goat(name, year, image, id));
         }
         adapter.notifyDataSetChanged();
         ////////////////////////////////////////////////////////////////////////////////////////
@@ -273,5 +273,5 @@ public class GoatFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
+*/
 }
