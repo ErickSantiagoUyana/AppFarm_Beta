@@ -202,10 +202,11 @@ public class SheepsFragment extends Fragment {
         dialog.setContentView(R.layout.update_animal);
         dialog.setTitle("Update");
 
-        imageViewAnimal = (ImageView) dialog.findViewById(R.id.imageViewAnimal);
-        final EditText EditText_Name = (EditText) dialog.findViewById(R.id.EditText_Name);
-        final EditText EditText_Year = (EditText) dialog.findViewById(R.id.EditText_Year);
-        Button Button_Update = (Button) dialog.findViewById(R.id.Button_Update);
+        imageViewAnimal = (ImageView) dialog.findViewById(R.id.imageViewUpdate);
+        final EditText EditText_Name = (EditText) dialog.findViewById(R.id.edtNameUpdate);
+        final EditText EditText_Year = (EditText) dialog.findViewById(R.id.edtYearUpdate);
+        Button Button_Update = (Button) dialog.findViewById(R.id.btnAddUpdate);
+        Button Button_Cancel = (Button) dialog.findViewById((R.id.btnCancelUpdate));
 
         // set width for dialog
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);

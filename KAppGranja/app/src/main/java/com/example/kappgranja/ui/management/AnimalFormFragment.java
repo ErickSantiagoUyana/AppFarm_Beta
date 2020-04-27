@@ -30,12 +30,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class AnimalFormFragment extends Fragment {
+public class AnimalFormFragment extends Fragment implements View.OnClickListener {
 
-    EditText edtName, edtYear;
-    Button btnChoose, btnAdd, btnCancel;
-    ImageView imageView;
-    final int REQUEST_CODE_GALLERY = 999;
+    private EditText edtName, edtYear;
+    private Button btnChoose, btnAdd, btnCancel;
+    private ImageView imageView;
+    private int REQUEST_CODE_GALLERY = 999;
     public static SQLiteHelper sqLiteHelper;
     private String NameTab;
 
@@ -44,7 +44,6 @@ public class AnimalFormFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_animal_form, container, false);
-
         NameTab = getArguments().getString("P");
         return view;
     }
@@ -55,104 +54,82 @@ public class AnimalFormFragment extends Fragment {
 
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         super.onViewCreated(view, savedInstanceState);
-
-
         init(view);
-
         sqLiteHelper = ManagementFragment.sqLiteHelper;
 
+    }
 
 
+    @Override
+    public void onClick(View v) {
 
-        btnChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        switch (v.getId()) {
 
+            case R.id.btnChoose:
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_GALLERY);
+                break;
 
-                requestPermissions(
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_GALLERY
-
-                );
-
-            }
-        });
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
+            case R.id.btnAdd:
+                try {
                     sqLiteHelper.insertData(
                             edtName.getText().toString().trim(),
                             edtYear.getText().toString().trim(),
-                            imageViewToByte(imageView),NameTab
+                            imageViewToByte(imageView), NameTab
                     );
                     Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                     edtName.setText("");
                     edtYear.setText("");
-                    imageView.setImageResource(R.drawable.ic_cow_2);
-                }
-                catch (Exception e){
+                    imageView.setImageResource(R.drawable.img_add_animals);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-        });
+                break;
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            case R.id.btnCancel:
                 Navigation.findNavController(v).popBackStack();
-            }
-        });
+                break;
 
+            default:
+                break;
+        }
     }
 
     public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
+
         return byteArray;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_GALLERY){
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_CODE_GALLERY) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent, REQUEST_CODE_GALLERY);
-            }
-            else {
+            } else {
                 Toast.makeText(getContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
             }
             return;
         }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-
-        if(requestCode == REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK && data != null){
+        if (requestCode == REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = data.getData();
-
             try {
-
-
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 imageView.setImageBitmap(bitmap);
 
@@ -160,17 +137,21 @@ public class AnimalFormFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-    private void init( View view){
+    private void init(View view) {
+        //BUTTONS
+        btnChoose = (Button) view.findViewById(R.id.btnChoose);
+        btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        btnChoose.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
+        //EDITTEXT
         edtName = (EditText) view.findViewById(R.id.edtName);
         edtYear = (EditText) view.findViewById(R.id.edtYear);
-        btnChoose = (Button) view.findViewById(R.id.btnChoose);
-        btnAdd = (Button) view.findViewById(R.id.btnAdd);
-        btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        //IMAGEVIEW
         imageView = (ImageView) view.findViewById(R.id.imageView);
     }
 }

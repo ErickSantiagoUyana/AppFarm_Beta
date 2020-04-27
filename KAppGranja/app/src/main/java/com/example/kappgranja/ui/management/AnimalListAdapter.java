@@ -30,16 +30,12 @@ public class AnimalListAdapter extends BaseAdapter {
 
         if(animal == "COWS")
             this.AnimalList = (ArrayList<Cow>) AnimalList;
-
         if(animal == "PIGS")
             this.AnimalList = (ArrayList<Pig>) AnimalList;
         if(animal == "SHEEPS")
             this.AnimalList = (ArrayList<Sheep>) AnimalList;
         if(animal == "GOATS")
             this.AnimalList = (ArrayList<Goat>) AnimalList;
-
-
-
 
     }
 

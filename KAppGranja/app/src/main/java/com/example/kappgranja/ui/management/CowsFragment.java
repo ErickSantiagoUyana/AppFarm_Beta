@@ -16,12 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,15 +41,19 @@ import java.util.ArrayList;
 
 public class CowsFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    ListView listView;
-    ArrayList<Cow> list;
-    AnimalListAdapter adapter = null;
-    private String NameTab = "COWS";
+    private RecyclerView recyclerView;
+    private ListView listView;
+    private ArrayList<Cow> list;
+    private AnimalListAdapter adapter;
+    static private String NameTab = "COWS";
+    private Button botton_add;
+    private int REQUEST_CODE_GALLERY = 888;
+
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cow, container, false);
     }
@@ -58,9 +64,9 @@ public class CowsFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.list_view);
         list = new ArrayList<>();
-
         adapter = new AnimalListAdapter(getContext(), R.layout.row_list_animal, list,NameTab);
         listView.setAdapter(adapter);
+        botton_add = view.findViewById(R.id.add_animal);
 
 
         // get all data from sqlite
@@ -75,70 +81,21 @@ public class CowsFragment extends Fragment {
             list.add(new Cow(name, year, image, id));
         }
         adapter.notifyDataSetChanged();
-        ////////////////////////////////////////////////////////////////////////////////////////
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /*final Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.update_animal);
-                dialog.setTitle( listView.getItemAtPosition(position).toString());
-                dialog.show();*/
-                Cow cow = (Cow) listView.getItemAtPosition(position);
-                list.get(position).getName();
-                Toast.makeText(getContext(),  cow.getYear()+list.get(position).getName(),Toast.LENGTH_LONG).show();
+                showDialogDetail(position,getActivity());
+
             }
         });
 
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                CharSequence[] items = {"Update", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-
-                dialog.setTitle("Choose an action");
-                dialog.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (item == 0) {
-                            // update
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
-                            ArrayList<Integer> arrID = new ArrayList<Integer>();
-                            while (c.moveToNext()){
-                                arrID.add(c.getInt(0));
-                            }
-                            // show dialog update at here
-                            showDialogUpdate(getActivity(), arrID.get(position));
-
-                        } else {
-                            // delete
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
-                            ArrayList<Integer> arrID = new ArrayList<Integer>();
-                            while (c.moveToNext()){
-                                arrID.add(c.getInt(0));
-                            }
-                            showDialogDelete(arrID.get(position));
-                        }
-                    }
-                });
-                dialog.show();
-                return true;
-            }
-        });
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        Button botton_add;
-        botton_add = view.findViewById(R.id.add_animal);
         botton_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Bundle bundle = new Bundle();
-
                 bundle.putString("P", NameTab);
                 Navigation.findNavController(v).navigate(R.id.action_cowsFragment_to_animalFormFragment,bundle);
 
@@ -147,6 +104,39 @@ public class CowsFragment extends Fragment {
 
     }
 
+
+    private void showDialogDetail(int position, Activity activity){
+
+        list.get(position);
+
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.fragment_animal_detail);
+        dialog.setTitle("Update");
+
+        ImageView imagen = (ImageView) dialog.findViewById(R.id.imageView2);
+        final EditText EditText_Name = (EditText) dialog.findViewById(R.id.edtNameUpdate);
+        final EditText EditText_Year = (EditText) dialog.findViewById(R.id.edtYearUpdate);
+        Button Button_Update = (Button) dialog.findViewById(R.id.btnAddUpdate);
+        Button Button_Cancel = (Button) dialog.findViewById((R.id.btnChoose));
+        TextView number = (TextView) dialog.findViewById(R.id.textView_numberID);
+        number.setText("cambiamos esto");
+        byte[] foodImage = list.get(position).getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
+        imagen.setImageBitmap(bitmap);
+
+
+
+
+
+        // set width for dialog
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setLayout(width,height);
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dialog.show();
+
+    }
 
     private void showDialogDelete(final int isA){
         final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
@@ -193,41 +183,35 @@ public class CowsFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if(requestCode == 888){
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 888);
-            }
-            else {
-                Toast.makeText(getContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
-            }
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
 
     ImageView imageViewAnimal;
-    private void showDialogUpdate(Activity activity, final int position){
+
+    /*private void showDialogUpdate(Activity activity, final int position){
 
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.update_animal);
         dialog.setTitle("Update");
 
-        imageViewAnimal = (ImageView) dialog.findViewById(R.id.imageViewAnimal);
-        final EditText EditText_Name = (EditText) dialog.findViewById(R.id.EditText_Name);
-        final EditText EditText_Year = (EditText) dialog.findViewById(R.id.EditText_Year);
-        Button Button_Update = (Button) dialog.findViewById(R.id.Button_Update);
+        imageViewAnimal = (ImageView) dialog.findViewById(R.id.imageViewUpdate);
+        final EditText EditText_Name = (EditText) dialog.findViewById(R.id.edtNameUpdate);
+        final EditText EditText_Year = (EditText) dialog.findViewById(R.id.edtYearUpdate);
+        Button Button_Update = (Button) dialog.findViewById(R.id.btnAddUpdate);
+        Button Button_Cancel = (Button) dialog.findViewById((R.id.btnCancelUpdate));
 
         // set width for dialog
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+
+        //int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
         // set height for dialog
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
-        dialog.getWindow().setLayout(width, height);
+        //int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
+
+        dialog.getWindow().setLayout(width,height);
+        //dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.show();
 
         imageViewAnimal.setOnClickListener(new View.OnClickListener() {
@@ -236,7 +220,7 @@ public class CowsFragment extends Fragment {
                 // request photo library
                 requestPermissions(
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        888
+                        REQUEST_CODE_GALLERY
 
 
                 );
@@ -262,22 +246,42 @@ public class CowsFragment extends Fragment {
                 updateAnimalList();
             }
         });
-    }
 
+
+        Button_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    dialog.cancel();
+            }
+        });
+    }*/
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            }
+            else {
+                Toast.makeText(getContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-
-        if(requestCode == 888 && resultCode == Activity.RESULT_OK && data != null){
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK && data != null){
             Uri uri = data.getData();
 
             try {
-
-
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 imageViewAnimal.setImageBitmap(bitmap);
 
@@ -285,9 +289,6 @@ public class CowsFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 }
