@@ -9,54 +9,75 @@
     tools:context="com.example.kappgranja.ui.management.AnimalFormFragment">
 
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorBrown"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="ANIMAL DETAILS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout7"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewDetail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/btnDeleteDetail"
-        android:layout_width="116dp"
-        android:layout_height="43dp"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="348dp"
+        android:layout_marginRight="348dp"
+        android:layout_marginBottom="32dp"
         android:background="#FF9933"
         android:fontFamily="@font/roboto_medium"
         android:text="DELETE"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.585"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintStart_toEndOf="@+id/btnUpdateDetail"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout7" />
 
     <Button
         android:id="@+id/btnUpdateDetail"
-        android:layout_width="116dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="292dp"
-        android:layout_marginLeft="292dp"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="346dp"
+        android:layout_marginLeft="346dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="33dp"
         android:background="#6D8764"
         android:fontFamily="@font/roboto_medium"
         android:text="UPDATE"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDeleteDetail"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteDetail"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnDeleteDetail"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDetail" />
 
     <FrameLayout
         android:id="@+id/frameLayout7"
-        android:layout_width="386dp"
-        android:layout_height="283dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginRight="81dp"
+        android:layout_marginBottom="34dp"
         android:background="#FFFFFF"
         android:paddingLeft="30dp"
         android:paddingTop="30dp"
         android:paddingRight="30dp"
         android:paddingBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnDeleteDetail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toEndOf="@+id/imageViewDetail"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,8 +86,8 @@
             android:gravity="center">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="119dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -136,7 +157,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -198,37 +219,26 @@
         </LinearLayout>
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="827dp"
-        android:layout_height="26dp"
-        android:background="@color/colorBrown"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="center"
-        android:text="Name"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/frameLayout7"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageViewDetail"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036" />
-
     <ImageView
         android:id="@+id/imageViewDetail"
-        android:layout_width="386dp"
-        android:layout_height="283dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="33dp"
         android:background="#FFFFFF"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="20dp"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout7"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdateDetail"
         app:layout_constraintEnd_toStartOf="@+id/frameLayout7"
-        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout7"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_fondo_max" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

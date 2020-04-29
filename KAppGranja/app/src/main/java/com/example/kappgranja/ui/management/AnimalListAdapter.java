@@ -79,6 +79,7 @@ public class AnimalListAdapter extends BaseAdapter {
         }
 
 
+        if(animal == "COWS") {
 
             Cow cow = ((Cow) AnimalList.get(position));
 
@@ -88,9 +89,10 @@ public class AnimalListAdapter extends BaseAdapter {
             byte[] cowImage = cow.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(cowImage, 0, cowImage.length);
             holder.imageView.setImageBitmap(bitmap);
+        }
             //holder.imageView.setImageBitmap(bitmap);
 
-        /*if(animal == "PIGS") {
+        if(animal == "PIGS") {
             Pig pig = ((Pig) AnimalList.get(position));
 
             holder.txtName.setText(pig.getName());
@@ -119,7 +121,7 @@ public class AnimalListAdapter extends BaseAdapter {
             byte[] foodImage = goat.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
             holder.imageView.setImageBitmap(bitmap);
-        }*/
+        }
 
         return row;
     }

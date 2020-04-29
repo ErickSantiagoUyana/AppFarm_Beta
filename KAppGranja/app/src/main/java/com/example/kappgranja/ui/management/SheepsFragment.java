@@ -10,18 +10,22 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kappgranja.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -39,90 +44,48 @@ import java.util.ArrayList;
 
 public class SheepsFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    ListView listView;
-    ArrayList<Sheep> list;
-    AnimalListAdapter adapter = null;
+    private ListView listView;
+    private ArrayList<Sheep> list;
+    private AnimalListAdapter adapter;
     private String NameTab = "SHEEPS";
+    private ImageButton botton_add;
+    private int REQUEST_CODE_GALLERY = 888;
+    private SQLiteHelper sqLiteHelper;
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sheeps, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+    {
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
-/*
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.list_view);
+        listView = view.findViewById(R.id.list_view);
         list = new ArrayList<>();
-
         adapter = new AnimalListAdapter(getContext(), R.layout.row_list_animal, list,NameTab);
         listView.setAdapter(adapter);
-
+        botton_add = view.findViewById(R.id.add_animal2);
+        sqLiteHelper = ManagementFragment.sqLiteHelper;
 
         // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
-        list.clear();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String year = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
+        updateAnimalList();
 
-            list.add(new Sheep(name, year, image, id));
-        }
-        adapter.notifyDataSetChanged();
-        ////////////////////////////////////////////////////////////////////////////////////////
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CharSequence[] items = {"Update", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                showDialogDetail(position,getActivity());
 
-                dialog.setTitle("Choose an action");
-                dialog.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (item == 0) {
-                            // update
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
-                            ArrayList<Integer> arrID = new ArrayList<Integer>();
-                            while (c.moveToNext()){
-                                arrID.add(c.getInt(0));
-                            }
-                            // show dialog update at here
-                            showDialogUpdate(getActivity(), arrID.get(position));
-
-                        } else {
-                            // delete
-                            Cursor c = ManagementFragment.sqLiteHelper.getData("SELECT id FROM "+NameTab);
-                            ArrayList<Integer> arrID = new ArrayList<Integer>();
-                            while (c.moveToNext()){
-                                arrID.add(c.getInt(0));
-                            }
-                            showDialogDelete(arrID.get(position));
-                        }
-                    }
-                });
-                dialog.show();
-                return true;
             }
         });
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        Button botton_add;
-        botton_add = view.findViewById(R.id.add_animal);
         botton_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Bundle bundle = new Bundle();
-
                 bundle.putString("P", NameTab);
                 Navigation.findNavController(v).navigate(R.id.action_sheepsFragment_to_animalFormFragment,bundle);
 
@@ -132,8 +95,83 @@ public class SheepsFragment extends Fragment {
     }
 
 
-    private void showDialogDelete(final int isA){
-        final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
+    private void showDialogDetail(int position, Activity activity){
+
+
+        Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.fragment_animal_detail);
+
+        ImageView imagen = (ImageView) dialog.findViewById(R.id.imageViewDetail);
+
+        TextView texName = (TextView) dialog.findViewById(R.id.textNameDetail);
+        TextView textNumber = (TextView) dialog.findViewById(R.id.textNumberDetail);
+        TextView textAge = (TextView) dialog.findViewById(R.id.textAgeDetail);
+        TextView textState = (TextView) dialog.findViewById(R.id.textStateDetail);
+        TextView textHealth = (TextView) dialog.findViewById(R.id.textHealthDetail);
+        TextView textSex = (TextView) dialog.findViewById(R.id.textSexDetail);
+        TextView textRace = (TextView) dialog.findViewById(R.id.textRaceDetail);
+
+        Button btnUpdateDetail = (Button) dialog.findViewById(R.id.btnUpdateDetail);
+        Button btnDeleteDetail = (Button) dialog.findViewById((R.id.btnDeleteDetail));
+
+        texName.setText(list.get(position).getName());
+        textNumber.setText(list.get(position).getIdNumber());
+        textAge.setText(list.get(position).getAge());
+        textState.setText(list.get(position).getState());
+        textHealth.setText(list.get(position).getHealth());
+        textSex.setText(list.get(position).getSex());
+        textRace.setText(list.get(position).getRace());
+
+        byte[] foodImage = list.get(position).getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
+        imagen.setImageBitmap(bitmap);
+
+        // set width for dialog
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setLayout(width,height);
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        dialog.show();
+        btnDeleteDetail.setOnClickListener(new View.OnClickListener() {
+            AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
+
+            @Override
+            public void onClick(View v) {
+
+                showDialogDelete(list.get(position).getId());
+                dialog.dismiss();
+            }
+
+        });
+        btnUpdateDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDialogUpdate(activity,list.get(position).getId());
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+    /*private void showDialogUpdate(int isA, Activity activity){
+
+        Dialog dialogUpdate = new Dialog(activity);
+        dialogUpdate.setContentView(R.layout.update_animal);
+        // set width for dialog
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+        dialogUpdate.getWindow().setLayout(width,height);
+        dialogUpdate.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dialogUpdate.show();
+
+    }*/
+    private void showDialogDelete(int isA){
+        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getContext());
 
         dialogDelete.setTitle("Warning!!");
         dialogDelete.setMessage("Are you sure you want to this delete?");
@@ -161,41 +199,30 @@ public class SheepsFragment extends Fragment {
 
 
 
-
     private void updateAnimalList(){
         // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
+        Cursor cursor = sqLiteHelper.getData("SELECT * FROM "+NameTab);
         list.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String year = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
+            String idNumber = cursor.getString(1);
+            String name = cursor.getString(2);
+            String age = cursor.getString(3);
+            String state = cursor.getString(4);
+            String health = cursor.getString(5);
+            String sex = cursor.getString(6);
+            String race = cursor.getString(7);
+            byte[] image = cursor.getBlob(8);
 
-            list.add(new Sheep(name, year, image, id));
+            list.add(new Sheep(idNumber,name,age,state,health,sex,race,image,id));
         }
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if(requestCode == 888){
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 888);
-            }
-            else {
-                Toast.makeText(getContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
-            }
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
 
     ImageView imageViewAnimal;
+
     private void showDialogUpdate(Activity activity, final int position){
 
         final Dialog dialog = new Dialog(activity);
@@ -209,60 +236,59 @@ public class SheepsFragment extends Fragment {
         Button Button_Cancel = (Button) dialog.findViewById((R.id.btnCancelUpdate));
 
         // set width for dialog
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+
+        //int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
         // set height for dialog
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
-        dialog.getWindow().setLayout(width, height);
+        //int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
+
+        dialog.getWindow().setLayout(width,height);
+        //dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.show();
 
-        imageViewAnimal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // request photo library
-                requestPermissions(
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        888
 
-
-                );
-            }
-        });
-
-        Button_Update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    ManagementFragment.sqLiteHelper.updateData(
-                            EditText_Name.getText().toString().trim(),
-                            EditText_Year.getText().toString().trim(),
-                            ManagementFragment.imageViewToByte(imageViewAnimal),
-                            position,NameTab
-                    );
-                    dialog.dismiss();
-                    Toast.makeText(getContext(), "Update successfully!!!",Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception error) {
-                    Log.e("Update error", error.getMessage());
-                }
-                updateAnimalList();
-            }
-        });
     }
 
+    public static byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        return byteArray;
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            }
+            else {
+                Toast.makeText(getContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-
-        if(requestCode == 888 && resultCode == Activity.RESULT_OK && data != null){
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK && data != null){
             Uri uri = data.getData();
 
             try {
-
-
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 imageViewAnimal.setImageBitmap(bitmap);
 
@@ -270,9 +296,6 @@ public class SheepsFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-*/
 }

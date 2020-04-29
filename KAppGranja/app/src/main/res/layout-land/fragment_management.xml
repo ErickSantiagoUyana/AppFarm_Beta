@@ -26,8 +26,9 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="800dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorBrown"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
@@ -35,10 +36,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/button_pigs"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/button_sheeps"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.02" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_sheeps"
@@ -68,8 +70,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="83dp"
-            android:layout_marginRight="83dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
             android:layout_marginBottom="47dp"
             android:background="@drawable/special_button"
             android:drawableLeft="@drawable/ic_pig_2"
@@ -88,8 +90,8 @@
             android:id="@+id/button_cows"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="83dp"
-            android:layout_marginRight="83dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
             android:layout_marginBottom="113dp"
             android:background="@drawable/special_button"
             android:drawableLeft="@drawable/ic_cow_2"

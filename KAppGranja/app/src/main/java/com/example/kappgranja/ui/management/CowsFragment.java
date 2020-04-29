@@ -1,6 +1,5 @@
 package com.example.kappgranja.ui.management;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,7 +20,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,8 +29,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kappgranja.R;
 
@@ -47,18 +47,16 @@ public class CowsFragment extends Fragment {
     private ArrayList<Cow> list;
     private AnimalListAdapter adapter;
     private String NameTab = "COWS";
-    private Button botton_add;
+    private ImageButton botton_add;
     private int REQUEST_CODE_GALLERY = 888;
     private SQLiteHelper sqLiteHelper;
-
-
+    private View vaux;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cow, container, false);
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     @Override
@@ -69,9 +67,9 @@ public class CowsFragment extends Fragment {
         list = new ArrayList<>();
         adapter = new AnimalListAdapter(getContext(), R.layout.row_list_animal, list,NameTab);
         listView.setAdapter(adapter);
-        botton_add = view.findViewById(R.id.add_animal);
+        botton_add = view.findViewById(R.id.add_animal2);
         sqLiteHelper = ManagementFragment.sqLiteHelper;
-
+        vaux = view;
         // get all data from sqlite
         updateAnimalList();
 
@@ -151,8 +149,17 @@ public class CowsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                showDialogUpdate(activity,list.get(position).getId());
-            dialog.dismiss();
+                //showDialogUpdate(activity,list.get(position).getId());
+            //dialog.dismiss();
+                //int out = Integer.parseInt(list.get(position).toString());
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("P",list.get(position));
+                Navigation.findNavController(vaux).navigate(R.id.action_cowsFragment_to_animalUpdateFragment,bundle);
+                //dialog.dismiss();
+                dialog.cancel();
+
+
             }
         });
 
@@ -241,10 +248,7 @@ public class CowsFragment extends Fragment {
         int width = ViewGroup.LayoutParams.MATCH_PARENT;
         int height = ViewGroup.LayoutParams.MATCH_PARENT;
 
-
-        //int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
         // set height for dialog
-        //int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
 
         dialog.getWindow().setLayout(width,height);
         //dialog.getWindow().setLayout(width, height);

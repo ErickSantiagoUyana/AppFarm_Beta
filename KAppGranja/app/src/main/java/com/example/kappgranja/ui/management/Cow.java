@@ -1,6 +1,8 @@
 package com.example.kappgranja.ui.management;
 
-public class Cow {
+import java.io.Serializable;
+
+public class Cow implements Serializable {
 
 
     private int id;

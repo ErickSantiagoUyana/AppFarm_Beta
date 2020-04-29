@@ -1,34 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-
     tools:context="com.example.kappgranja.ui.management.AnimalFormFragment">
+
+    <TextView
+        android:id="@+id/new_animal"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:background="@color/colorBrown"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="NEW ANIMAL"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="797dp"
-        android:layout_height="425dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginLeft="125dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginRight="180dp"
-        android:layout_marginBottom="27dp"
-        android:background="#FFFFFF">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/new_animal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/new_animal"
+        app:layout_constraintTop_toBottomOf="@+id/new_animal">
 
         <FrameLayout
             android:id="@+id/frameLayout5"
             android:layout_width="wrap_content"
-            android:layout_height="219dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/new_animal"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="400dp"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -36,155 +61,143 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="206dp"
+                    android:layout_width="102dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textName"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="Name:"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="ID Number:"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textAge"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="Age:"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textState"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="State:"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textHealth"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="Health:"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textSex"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="Sex:"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textRace"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="center|left"
                         android:text="Race:"
                         android:textSize="18sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="238dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="242dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/edtName"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
+                        android:background="#5A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="10sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/edtNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:ems="10"
+                        android:layout_height="wrap_content"
+                        android:background="#9A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
+                        android:gravity="center|left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="8sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/edtAge"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:ems="10"
+                        android:layout_height="wrap_content"
+                        android:background="#5A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="8sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/edtState"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:ems="10"
+                        android:layout_height="wrap_content"
+                        android:background="#9A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="8sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/edtHealth"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:ems="10"
+                        android:layout_height="wrap_content"
+                        android:background="#5A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="8sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/edtSex"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:ems="10"
+                        android:layout_height="wrap_content"
+                        android:background="#9A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="8sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/edtRace"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:background="#5A666666"
                         android:fontFamily="@font/roboto_medium"
-                        android:gravity="left"
                         android:inputType="textPersonName"
-                        android:textColor="#666666"
-                        android:textSize="8sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -195,80 +208,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="270dp"
+            android:layout_marginRight="270dp"
             android:background="#00D61818"
             android:drawableTop="@drawable/ic_check"
             android:fontFamily="@font/roboto_medium"
             android:text="Accept"
             android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/frameLayout5" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="189dp"
-            android:layout_marginLeft="189dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="270dp"
+            android:layout_marginLeft="270dp"
+            android:layout_marginBottom="10dp"
             android:background="#00FFFFFF"
             android:drawableTop="@drawable/ic_close"
             android:fontFamily="@font/roboto_medium"
             android:text="Cancel"
             android:textColor="#666666"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnAdd"
+            app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnAdd"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btnChoose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="22dp"
-            android:layout_marginRight="22dp"
+            android:layout_width="143dp"
+            android:layout_height="50dp"
             android:background="#00FFFFFF"
             android:fontFamily="@font/roboto_medium"
             android:text="Choose image"
             android:textColor="#666666"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/new_animal"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="39dp"
-            android:layout_marginLeft="39dp"
-            android:layout_marginEnd="39dp"
-            android:layout_marginRight="39dp"
-            android:layout_marginBottom="18dp"
-            android:background="@color/colorBrown"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center"
-            android:text="NEW ANIMAL"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout5"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewForm"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/imageViewForm"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewForm"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/imageViewForm"
-            android:layout_width="154dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginLeft="48dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="55dp"
+            android:layout_width="144dp"
+            android:layout_height="124dp"
             android:background="#00FFFFFF"
             android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toBottomOf="@+id/btnChoose"
-            app:layout_constraintStart_toStartOf="@+id/new_animal"
-            app:layout_constraintTop_toTopOf="@+id/new_animal" />
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

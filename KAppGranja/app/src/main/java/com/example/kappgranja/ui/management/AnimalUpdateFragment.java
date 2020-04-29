@@ -5,19 +5,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.kappgranja.R;
 
 public class AnimalUpdateFragment extends Fragment {
 
 
+    private Cow Cow;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.update_animal, container, false);
+        View view = inflater.inflate(R.layout.fragment_animal_form, container, false);
+
+        Cow cow = (Cow) getArguments().getSerializable("P");
+
+        cow.getAge();
+        TextView textView = view.findViewById(R.id.textName);
+        textView.setText(cow.getAge());
         return view;
     }
 /*

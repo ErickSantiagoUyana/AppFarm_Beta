@@ -5,7 +5,7 @@ public class Pig {
     private int id;
     private  String idNumber;
     private String name;
-    private int age;
+    private String age;
     private String state;
     private String health;
     private String sex;
@@ -14,7 +14,7 @@ public class Pig {
 
 
 
-    public Pig(String idNumber, String name, int age, String state, String health,
+    public Pig(String idNumber, String name, String age, String state, String health,
                String sex, String race, byte[] image, int id) {
         this.idNumber = idNumber;
         this.name = name;
@@ -51,11 +51,11 @@ public class Pig {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
