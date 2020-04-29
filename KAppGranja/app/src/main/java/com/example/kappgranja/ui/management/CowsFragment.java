@@ -51,7 +51,7 @@ public class CowsFragment extends Fragment {
     private int REQUEST_CODE_GALLERY = 888;
     private SQLiteHelper sqLiteHelper;
     private View vaux;
-
+    private  ImageView imageViewAnimal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
@@ -153,7 +153,7 @@ public class CowsFragment extends Fragment {
             //dialog.dismiss();
                 //int out = Integer.parseInt(list.get(position).toString());
                 Bundle bundle = new Bundle();
-
+                bundle.putString("C",NameTab);
                 bundle.putSerializable("P",list.get(position));
                 Navigation.findNavController(vaux).navigate(R.id.action_cowsFragment_to_animalUpdateFragment,bundle);
                 //dialog.dismiss();
@@ -230,7 +230,7 @@ public class CowsFragment extends Fragment {
 
 
 
-    ImageView imageViewAnimal;
+   /*
 
     private void showDialogUpdate(Activity activity, final int position){
 
@@ -267,7 +267,7 @@ public class CowsFragment extends Fragment {
 
         return byteArray;
     }
-
+*/
 
 
     @Override
