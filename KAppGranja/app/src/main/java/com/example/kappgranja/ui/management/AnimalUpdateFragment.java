@@ -33,7 +33,7 @@ import java.io.InputStream;
 
 import kotlin.jvm.internal.Ref;
 
-public class AnimalUpdateFragment extends Fragment implements View.OnClickListener{
+public class AnimalUpdateFragment extends Fragment {
 
 
     private EditText edtName, edtNumber,edtAge,edtState, edtHealth, edtSex,edtRace;
@@ -72,32 +72,63 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
         sqLiteHelper = ManagementFragment.sqLiteHelper;
         nameUp = getArguments().getString("C");
 
-        if(getArguments().getString("C") == "COWS") {
+        if(nameUp == "COWS") {
 
-           cow = (Cow) getArguments().getSerializable("C");
-           form_dates(cow.getName(),cow.getIdNumber(),cow.getAge(),cow.getState(),cow.getHealth()
-           ,cow.getSex(),cow.getRace(),cow.getImage(),cow.getId());
+           cow = (Cow) getArguments().getSerializable("P");
+           //form_dates(cow.getName(),cow.getIdNumber(),cow.getAge(),cow.getState(),cow.getHealth()
+           //,cow.getSex(),cow.getRace(),cow.getImage(),cow.getId());
 
 
         }
-        if(getArguments().getString("C") == "PIGS") {
-             pig = (Pig) getArguments().getSerializable("C");
+        if(nameUp == "PIGS") {
+             pig = (Pig) getArguments().getSerializable("P");
             form_dates(pig.getName(),pig.getIdNumber(),pig.getAge(),pig.getState(),pig.getHealth()
                     ,pig.getSex(),pig.getRace(),pig.getImage(),pig.getId());
 
         }
-        if(getArguments().getString("C") == "GOATS") {
-             goat = (Goat) getArguments().getSerializable("C");
-            form_dates(goat.getName(),goat.getIdNumber(),goat.getAge(),goat.getState(),goat.getHealth()
-                    ,goat.getSex(),goat.getRace(),goat.getImage(),goat.getId());
+        if(nameUp == "GOATS") {
+             goat = (Goat) getArguments().getSerializable("P");
+            //form_dates(goat.getName(),goat.getIdNumber(),goat.getAge(),goat.getState(),goat.getHealth()
+              //      ,goat.getSex(),goat.getRace(),goat.getImage(),goat.getId());
 
         }
-        if(getArguments().getString("C") == "SHEEPS") {
-             sheep = (Sheep) getArguments().getSerializable("C");
-            form_dates(sheep.getName(),sheep.getIdNumber(),sheep.getAge(),sheep.getState(),sheep.getHealth()
-                    ,sheep.getSex(),sheep.getRace(),sheep.getImage(),sheep.getId());
+        if(nameUp == "SHEEPS") {
+             sheep = (Sheep) getArguments().getSerializable("P");
+            //form_dates(sheep.getName(),sheep.getIdNumber(),sheep.getAge(),sheep.getState(),sheep.getHealth()
+              //      ,sheep.getSex(),sheep.getRace(),sheep.getImage(),sheep.getId());
 
         }
+
+
+       /*switch (nameUp){
+
+            case "COWS":
+                cow = (Cow) getArguments().getSerializable("P");
+                form_dates(cow.getName(),cow.getIdNumber(),cow.getAge(),cow.getState(),cow.getHealth()
+                        ,cow.getSex(),cow.getRace(),cow.getImage(),cow.getId());
+                break;
+            case  "PIGS":
+                pig = (Pig) getArguments().getSerializable("P");
+                form_dates(pig.getName(),pig.getIdNumber(),pig.getAge(),pig.getState(),pig.getHealth()
+                        ,pig.getSex(),pig.getRace(),pig.getImage(),pig.getId());
+                break;
+
+            case "GOATS":
+                goat = (Goat) getArguments().getSerializable("P");
+                form_dates(goat.getName(),goat.getIdNumber(),goat.getAge(),goat.getState(),goat.getHealth()
+                        ,goat.getSex(),goat.getRace(),goat.getImage(),goat.getId());
+
+                break;
+
+            case "SHEEPS":
+                sheep = (Sheep) getArguments().getSerializable("P");
+                form_dates(sheep.getName(),sheep.getIdNumber(),sheep.getAge(),sheep.getState(),sheep.getHealth()
+                        ,sheep.getSex(),sheep.getRace(),sheep.getImage(),sheep.getId());
+
+                break;
+
+
+        }*/
 
         return view;
     }
@@ -111,15 +142,19 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
         add = view.findViewById(R.id.btnAdd);
         cancel = view.findViewById(R.id.btnCancel);
         choose = view.findViewById(R.id.btnChoose);
-        add.setOnClickListener(this);
-        cancel.setOnClickListener(this);
-        choose.setOnClickListener(this);
+        //add.setOnClickListener(this);
+        //cancel.setOnClickListener(this);
+        //choose.setOnClickListener(this);
+
+
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-
-
-    private void form_dates(String name, String number, String age, String state, String health,
+    public void form_dates(String name, String number, String age, String state, String health,
                             String sex, String race, byte[] image, int id){
 
         idUp = id;
@@ -140,6 +175,7 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
         edtSex = (EditText) viewAux.findViewById(R.id.edtSex);
         edtRace = (EditText) viewAux.findViewById(R.id.edtRace);
 
+
         edtName.setText(nameUp);
         edtNumber.setText((numberUp));
         edtAge.setText(ageUp);
@@ -149,14 +185,14 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
         edtRace.setText(RaceUp);
 
 
-        imageView = viewAux.findViewById(R.id.imageViewForm);
+        //imageView = viewAux.findViewById(R.id.imageViewForm);
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-        imageView.setImageBitmap(bitmap);
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        //imageView.setImageBitmap(bitmap);
 
 
     }
-    public static byte[] imageViewToByte(ImageView image) {
+    /*public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -164,6 +200,7 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
 
         return byteArray;
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -181,6 +218,7 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -239,7 +277,7 @@ public class AnimalUpdateFragment extends Fragment implements View.OnClickListen
                 break;
         }
     }
-/*
+
     private void updateAnimalList(){
         // get all data from sqlite
         Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
