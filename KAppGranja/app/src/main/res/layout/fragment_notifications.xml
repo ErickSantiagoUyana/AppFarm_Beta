@@ -22,16 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/nueva_actividad"
-            android:layout_width="174dp"
-            android:layout_height="216dp"
-            android:layout_marginStart="210dp"
-            android:layout_marginLeft="210dp"
-            android:layout_marginTop="66dp"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_notifications" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

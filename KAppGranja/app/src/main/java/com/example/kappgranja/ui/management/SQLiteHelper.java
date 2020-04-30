@@ -1,5 +1,6 @@
 package com.example.kappgranja.ui.management;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,7 +19,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertData(String idNumber, String name,String age, String state,String health,
+    public void insertData(String idnumber, String name,String age, String state,String health,
                            String sex, String race, byte[] image,String tab){
         SQLiteDatabase database = getWritableDatabase();
         String sql = "INSERT INTO "+tab+" VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -26,7 +27,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
 
-        statement.bindString(1, idNumber);
+        statement.bindString(1, idnumber);
         statement.bindString(2, name);
         statement.bindString(3, age);
         statement.bindString(4, state);
@@ -34,29 +35,25 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.bindString(6, sex);
         statement.bindString(7, race);
         statement.bindBlob(8, image);
-        //String sql = "INSERT INTO "+tab+" VALUES (NULL, '"+idNumber+"', '"+name+"','"+age+"', ' ', ' ',' ', ' ',' ')";
 
         statement.executeInsert();
     }
 
-    public void updateData(String idNumber, String name, String age, String state,String health,
-                           String sex, String race, byte[] image, int id,String tab) {
+    public void updateData(String idnumber, String name, String age, String state,String health,
+                           String sex, String race, byte[] image, String id,String tab) {
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "UPDATE "+tab+" SET idNumber = ?, name = ?, age = ?, state = ?, health = ?," +
-                "sex = ?, race = ?,image = ? WHERE id = ?";
-        SQLiteStatement statement = database.compileStatement(sql);
 
-        statement.bindString(1, idNumber);
-        statement.bindString(2, name);
-        statement.bindString(3, age);
-        statement.bindString(4, state);
-        statement.bindString(5, health);
-        statement.bindString(6, sex);
-        statement.bindString(7, race);
-        statement.bindBlob(8, image);
-        statement.bindDouble(9, (double)id);
-        statement.execute();
-        database.close();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("idnumber",idnumber);
+        contentValues.put("name",name);
+        contentValues.put("age",age);
+        contentValues.put("state",state);
+        contentValues.put("health",health);
+        contentValues.put("sex",sex);
+        contentValues.put("race",race);
+        contentValues.put("image",image);
+        database.update(tab,contentValues, "id = ?", new String[]{id});
+
     }
 
     public  void deleteData(int id,String tab) {

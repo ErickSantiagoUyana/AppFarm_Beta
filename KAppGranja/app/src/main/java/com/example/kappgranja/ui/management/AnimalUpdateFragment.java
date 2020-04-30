@@ -4,12 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
 import com.example.kappgranja.R;
@@ -31,12 +30,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import kotlin.jvm.internal.Ref;
-
-public class AnimalUpdateFragment extends Fragment {
+public class AnimalUpdateFragment extends Fragment implements View.OnClickListener{
 
 
     private EditText edtName, edtNumber,edtAge,edtState, edtHealth, edtSex,edtRace;
+    private Button btnChoose, btnAdd, btnCancel;
+    private TextView textname;
     private int idUp;
     private String nameUp;
     private String numberUp;
@@ -53,10 +52,6 @@ public class AnimalUpdateFragment extends Fragment {
     private String NameTab;
 
 
-    private Button add;
-    private Button cancel;
-    private Button choose;
-
     private Cow cow;
     private Pig pig;
     private Goat goat;
@@ -69,66 +64,37 @@ public class AnimalUpdateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_animal_form, container, false);
 
-        sqLiteHelper = ManagementFragment.sqLiteHelper;
-        nameUp = getArguments().getString("C");
+        viewAux = view;
+        NameTab = getArguments().getString("C");
 
-        if(nameUp == "COWS") {
+
+
+        if(NameTab == "COWS") {
 
            cow = (Cow) getArguments().getSerializable("P");
-           //form_dates(cow.getName(),cow.getIdNumber(),cow.getAge(),cow.getState(),cow.getHealth()
-           //,cow.getSex(),cow.getRace(),cow.getImage(),cow.getId());
+           form_dates(cow.getName(),cow.getIdNumber(),cow.getAge(),cow.getState(),cow.getHealth()
+           ,cow.getSex(),cow.getRace(),cow.getImage(),cow.getId());
 
 
         }
-        if(nameUp == "PIGS") {
+        if(NameTab == "PIGS") {
              pig = (Pig) getArguments().getSerializable("P");
             form_dates(pig.getName(),pig.getIdNumber(),pig.getAge(),pig.getState(),pig.getHealth()
                     ,pig.getSex(),pig.getRace(),pig.getImage(),pig.getId());
 
         }
-        if(nameUp == "GOATS") {
+        if(NameTab == "GOATS") {
              goat = (Goat) getArguments().getSerializable("P");
-            //form_dates(goat.getName(),goat.getIdNumber(),goat.getAge(),goat.getState(),goat.getHealth()
-              //      ,goat.getSex(),goat.getRace(),goat.getImage(),goat.getId());
+            form_dates(goat.getName(),goat.getIdNumber(),goat.getAge(),goat.getState(),goat.getHealth()
+                  ,goat.getSex(),goat.getRace(),goat.getImage(),goat.getId());
 
         }
-        if(nameUp == "SHEEPS") {
+        if(NameTab == "SHEEPS") {
              sheep = (Sheep) getArguments().getSerializable("P");
-            //form_dates(sheep.getName(),sheep.getIdNumber(),sheep.getAge(),sheep.getState(),sheep.getHealth()
-              //      ,sheep.getSex(),sheep.getRace(),sheep.getImage(),sheep.getId());
+            form_dates(sheep.getName(),sheep.getIdNumber(),sheep.getAge(),sheep.getState(),sheep.getHealth()
+                    ,sheep.getSex(),sheep.getRace(),sheep.getImage(),sheep.getId());
 
         }
-
-
-       /*switch (nameUp){
-
-            case "COWS":
-                cow = (Cow) getArguments().getSerializable("P");
-                form_dates(cow.getName(),cow.getIdNumber(),cow.getAge(),cow.getState(),cow.getHealth()
-                        ,cow.getSex(),cow.getRace(),cow.getImage(),cow.getId());
-                break;
-            case  "PIGS":
-                pig = (Pig) getArguments().getSerializable("P");
-                form_dates(pig.getName(),pig.getIdNumber(),pig.getAge(),pig.getState(),pig.getHealth()
-                        ,pig.getSex(),pig.getRace(),pig.getImage(),pig.getId());
-                break;
-
-            case "GOATS":
-                goat = (Goat) getArguments().getSerializable("P");
-                form_dates(goat.getName(),goat.getIdNumber(),goat.getAge(),goat.getState(),goat.getHealth()
-                        ,goat.getSex(),goat.getRace(),goat.getImage(),goat.getId());
-
-                break;
-
-            case "SHEEPS":
-                sheep = (Sheep) getArguments().getSerializable("P");
-                form_dates(sheep.getName(),sheep.getIdNumber(),sheep.getAge(),sheep.getState(),sheep.getHealth()
-                        ,sheep.getSex(),sheep.getRace(),sheep.getImage(),sheep.getId());
-
-                break;
-
-
-        }*/
 
         return view;
     }
@@ -138,20 +104,14 @@ public class AnimalUpdateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewAux = view;
-        add = view.findViewById(R.id.btnAdd);
-        cancel = view.findViewById(R.id.btnCancel);
-        choose = view.findViewById(R.id.btnChoose);
-        //add.setOnClickListener(this);
-        //cancel.setOnClickListener(this);
-        //choose.setOnClickListener(this);
-
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     public void form_dates(String name, String number, String age, String state, String health,
@@ -167,13 +127,17 @@ public class AnimalUpdateFragment extends Fragment {
         RaceUp = race;
         imageViewAnimal = image;
 
-        edtName = (EditText) viewAux.findViewById(R.id.edtName);
-        edtNumber = (EditText) viewAux.findViewById(R.id.edtNumber);
-        edtAge = (EditText) viewAux.findViewById(R.id.edtAge);
-        edtState = (EditText) viewAux.findViewById(R.id.edtState);
-        edtHealth = (EditText) viewAux.findViewById(R.id.edtHealth);
-        edtSex = (EditText) viewAux.findViewById(R.id.edtSex);
-        edtRace = (EditText) viewAux.findViewById(R.id.edtRace);
+        edtName =  viewAux.findViewById(R.id.edtName);
+        edtNumber =  viewAux.findViewById(R.id.edtNumber);
+        edtAge =  viewAux.findViewById(R.id.edtAge);
+        edtState =  viewAux.findViewById(R.id.edtState);
+        edtHealth =  viewAux.findViewById(R.id.edtHealth);
+        edtSex = viewAux.findViewById(R.id.edtSex);
+        edtRace = viewAux.findViewById(R.id.edtRace);
+
+
+        textname = viewAux.findViewById(R.id.new_animal);
+        textname.setText("Update "+nameUp);
 
 
         edtName.setText(nameUp);
@@ -185,14 +149,65 @@ public class AnimalUpdateFragment extends Fragment {
         edtRace.setText(RaceUp);
 
 
-        //imageView = viewAux.findViewById(R.id.imageViewForm);
+        imageView = viewAux.findViewById(R.id.imageViewForm);
 
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-        //imageView.setImageBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        imageView.setImageBitmap(bitmap);
 
+
+
+        btnChoose = viewAux.findViewById(R.id.btnChoose);
+        btnCancel = viewAux.findViewById(R.id.btnCancel);
+        btnAdd =  viewAux.findViewById(R.id.btnAdd);
+        btnChoose.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
 
     }
-    /*public static byte[] imageViewToByte(ImageView image) {
+
+    @Override
+    public void onClick(View v) {
+        sqLiteHelper = ManagementFragment.sqLiteHelper;
+
+        switch (v.getId()) {
+
+            case R.id.btnChoose:
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_GALLERY);
+                break;
+
+            case R.id.btnAdd:
+
+                String numCadena= String.valueOf(idUp);
+                try {
+                    sqLiteHelper.updateData(
+                            edtNumber.getText().toString(),
+                            edtName.getText().toString(),
+                            edtAge.getText().toString(),
+                            edtState.getText().toString(),
+                            edtHealth.getText().toString(),
+                            edtSex.getText().toString(),
+                            edtRace.getText().toString(),
+                            imageViewToByte(imageView),
+                            numCadena,NameTab
+                    );
+                    Toast.makeText(getContext(), "Update successfully!!!",Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception error) {
+                    Toast.makeText(getContext(), "ERROR!",Toast.LENGTH_SHORT).show();
+                    Log.e("Update error", error.getMessage());
+                }
+
+                break;
+            case R.id.btnCancel:
+                Navigation.findNavController(v).popBackStack();
+                break;
+
+            default:
+                break;
+        }
+    }
+    public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -238,58 +253,4 @@ public class AnimalUpdateFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.btnChoose:
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_GALLERY);
-                break;
-
-            case R.id.btnAdd:
-
-                try {
-                    sqLiteHelper.insertData(
-                            edtNumber.getText().toString(),
-                            edtName.getText().toString(),
-                            edtAge.getText().toString(),
-                            edtState.getText().toString(),
-                            edtHealth.getText().toString(),
-                            edtSex.getText().toString(),
-                            edtRace.getText().toString(),
-                            imageViewToByte(imageView), NameTab
-                    );
-                    Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-                    //Navigation.findNavController(v).popBackStack();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Added failed", Toast.LENGTH_SHORT).show();
-
-                }
-                break;
-            case R.id.btnCancel:
-                Navigation.findNavController(v).popBackStack();
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private void updateAnimalList(){
-        // get all data from sqlite
-        Cursor cursor = ManagementFragment.sqLiteHelper.getData("SELECT * FROM "+NameTab);
-        list.clear();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String year = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
-
-            list.add(new Cow(name, year, image, id));
-        }
-        adapter.notifyDataSetChanged();
-    }*/
 }

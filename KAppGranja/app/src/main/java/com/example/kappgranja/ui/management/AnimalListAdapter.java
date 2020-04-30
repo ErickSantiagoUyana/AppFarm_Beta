@@ -29,13 +29,13 @@ public class AnimalListAdapter extends BaseAdapter {
         this.animal = animal;
 
         if(animal == "COWS")
-            this.AnimalList = (ArrayList<Cow>) AnimalList;
+            this.AnimalList =  AnimalList;
         if(animal == "PIGS")
-            this.AnimalList = (ArrayList<Pig>) AnimalList;
+            this.AnimalList = AnimalList;
         if(animal == "SHEEPS")
-            this.AnimalList = (ArrayList<Sheep>) AnimalList;
+            this.AnimalList = AnimalList;
         if(animal == "GOATS")
-            this.AnimalList = (ArrayList<Goat>) AnimalList;
+            this.AnimalList = AnimalList;
 
     }
 
@@ -69,9 +69,9 @@ public class AnimalListAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, null);
 
-            holder.txtName = (TextView) row.findViewById(R.id.name_animal);
-            holder.txtYear = (TextView) row.findViewById(R.id.year_animal);
-            holder.imageView = (ImageView) row.findViewById(R.id.image_animal);
+            holder.txtName =  row.findViewById(R.id.name_animal);
+            holder.txtYear = row.findViewById(R.id.year_animal);
+            holder.imageView = row.findViewById(R.id.image_animal);
             row.setTag(holder);
         }
         else {
@@ -90,7 +90,6 @@ public class AnimalListAdapter extends BaseAdapter {
             Bitmap bitmap = BitmapFactory.decodeByteArray(cowImage, 0, cowImage.length);
             holder.imageView.setImageBitmap(bitmap);
         }
-            //holder.imageView.setImageBitmap(bitmap);
 
         if(animal == "PIGS") {
             Pig pig = ((Pig) AnimalList.get(position));

@@ -1,34 +1,16 @@
 package com.example.kappgranja.ui.management;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.kappgranja.ui.management.CowsFragment;
-import com.example.kappgranja.ui.management.GoatFragment;
-import com.example.kappgranja.ui.management.PigsFragment;
 import com.example.kappgranja.R;
-import com.example.kappgranja.ui.management.SheepsFragment;
-
-import java.io.ByteArrayOutputStream;
 
 public class ManagementFragment extends Fragment implements View.OnClickListener {
 
@@ -67,12 +49,11 @@ public class ManagementFragment extends Fragment implements View.OnClickListener
         button_sheeps.setOnClickListener(this);
         button_cows.setOnClickListener(this);
         button_pigs.setOnClickListener(this);
+        sqlMain = "(id INTEGER PRIMARY KEY AUTOINCREMENT,idnumber VARCHAR, name VARCHAR,age VARCHAR," +
+                "state VARCHAR, health VARCHAR, sex VARCHAR, race VARCHAR, image BLOB)";
 
-        sqlMain = "(Id INTEGER PRIMARY KEY AUTOINCREMENT,idNumber VARCHAR, name VARCHAR, age VARCHAR, state VARCHAR, \" +\n" +
-                "                        \"health VARCHAR, sex VARCHAR, race VARCHAR, image BLOB)";
 
-
-        sqLiteHelper = new SQLiteHelper(getContext(), "AnimalsDB.sqlite", null, 1);
+        sqLiteHelper = new SQLiteHelper(getContext(), "AnimalsDB.sqlite", null, 4);
 
 
         sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS COWS"+sqlMain);

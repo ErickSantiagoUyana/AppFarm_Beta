@@ -51,7 +51,6 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         sqLiteHelper = ManagementFragment.sqLiteHelper;
 
-
     }
 
     @Override
@@ -86,7 +85,7 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
                             imageViewToByte(imageView), NameTab
                     );
                     Toast.makeText(getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-                    //Navigation.findNavController(v).popBackStack();
+                    Navigation.findNavController(v).popBackStack();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -147,21 +146,21 @@ public class AnimalFormFragment extends Fragment implements View.OnClickListener
 
     private void init(View view) {
         //BUTTONS
-        btnChoose = (Button) view.findViewById(R.id.btnChoose);
-        btnCancel = (Button) view.findViewById(R.id.btnCancel);
-        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        btnChoose =  view.findViewById(R.id.btnChoose);
+        btnCancel =  view.findViewById(R.id.btnCancel);
+        btnAdd = view.findViewById(R.id.btnAdd);
         btnChoose.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
         //EDITTEXT
-        edtName = (EditText) view.findViewById(R.id.edtName);
-        edtNumber = (EditText) view.findViewById(R.id.edtNumber);
-        edtAge = (EditText) view.findViewById(R.id.edtAge);
-        edtState = (EditText) view.findViewById(R.id.edtState);
-        edtHealth = (EditText) view.findViewById(R.id.edtHealth);
-        edtSex = (EditText) view.findViewById(R.id.edtSex);
-        edtRace = (EditText) view.findViewById(R.id.edtRace);
+        edtName =  view.findViewById(R.id.edtName);
+        edtNumber = view.findViewById(R.id.edtNumber);
+        edtAge = view.findViewById(R.id.edtAge);
+        edtState = view.findViewById(R.id.edtState);
+        edtHealth = view.findViewById(R.id.edtHealth);
+        edtSex = view.findViewById(R.id.edtSex);
+        edtRace = view.findViewById(R.id.edtRace);
         //IMAGEVIEW
-        imageView = (ImageView) view.findViewById(R.id.imageViewForm);
+        imageView = view.findViewById(R.id.imageViewForm);
     }
 }
